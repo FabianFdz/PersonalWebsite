@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://portfolio.local/schemas/status.schema.json",
+  "title": "Resumable harness status",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "run_id", "epic_id", "state", "phase", "current_round", "current_ticket", "rounds", "checkpoint", "approvals", "errors", "updated_at"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "project_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": ["string", "null"], "pattern": "^RUN-[A-Z0-9-]+$" },
+    "epic_id": { "type": ["string", "null"], "pattern": "^EPIC-[0-9]{3}$" },
+    "state": { "enum": ["not_started", "running", "waiting_for_human", "blocked", "failed", "complete"] },
+    "phase": { "enum": ["idle", "planning", "plan_approval", "architecture", "architecture_approval", "implementation", "review", "documentation", "scope_change_approval", "merge_approval", "complete"] },
+    "current_round": { "type": ["string", "null"], "pattern": "^ROUND-[0-9]{3}$" },
+    "current_ticket": { "type": ["string", "null"], "pattern": "^TICKET-[0-9]{3}$" },
+    "rounds": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["round_id", "status", "tickets"],
+        "properties": {
+          "round_id": { "type": "string", "pattern": "^ROUND-[0-9]{3}$" },
+          "status": { "enum": ["pending", "in_progress", "blocked", "complete"] },
+          "tickets": {
+            "type": "array",
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["ticket_id", "dependencies", "planning", "architecture", "implementation", "review", "tests", "documentation", "merge"],
+              "properties": {
+                "ticket_id": { "type": "string", "pattern": "^TICKET-[0-9]{3}$" },
+                "dependencies": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^TICKET-[0-9]{3}$" } },
+                "planning": { "$ref": "#/$defs/stage" },
+                "architecture": { "$ref": "#/$defs/stage" },
+                "implementation": { "$ref": "#/$defs/stage" },
+                "review": { "$ref": "#/$defs/stage" },
+                "tests": { "$ref": "#/$defs/stage" },
+                "documentation": { "$ref": "#/$defs/stage" },
+                "merge": { "$ref": "#/$defs/stage" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "checkpoint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["resume_from", "last_validated_artifact", "last_completed_phase", "saved_at"],
+      "properties": {
+        "resume_from": { "type": "string", "minLength": 1 },
+        "last_validated_artifact": { "type": ["string", "null"] },
+        "last_completed_phase": { "type": ["string", "null"] },
+        "saved_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "approvals": { "type": "array", "items": { "$ref": "https://portfolio.local/schemas/approval.schema.json" } },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["phase", "code", "message", "attempt", "at"],
+        "properties": {
+          "phase": { "type": "string" }, "code": { "type": "string" }, "message": { "type": "string" }, "attempt": { "type": "integer", "minimum": 1 }, "at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "updated_at": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "stage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "attempts", "artifact"],
+      "properties": {
+        "status": { "enum": ["not_started", "in_progress", "waiting_for_human", "passed", "failed", "blocked", "skipped"] },
+        "attempts": { "type": "integer", "minimum": 0 },
+        "artifact": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

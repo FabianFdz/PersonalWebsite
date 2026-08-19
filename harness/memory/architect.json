@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "agent": "architect",
+  "rules": [
+    {
+      "id": "RULE-ARCH-001",
+      "rule": "State failure behavior and verification evidence for every external or cross-boundary interface.",
+      "rationale": "Happy-path-only ADRs leave the implementation materially ambiguous.",
+      "applies_when": "A ticket crosses a module, process, network, or trust boundary",
+      "source_type": "seed",
+      "confidence": "high",
+      "created_at": "2026-08-19T00:00:00.000Z",
+      "last_updated_at": "2026-08-19T00:00:00.000Z"
+    }
+  ]
+}

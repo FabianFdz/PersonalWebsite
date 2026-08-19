@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "message_id": "MSG-DOCS-0001",
+  "run_id": "RUN-EXAMPLE",
+  "round_id": "ROUND-001",
+  "ticket_id": "TICKET-001",
+  "role": "documentation-specialist",
+  "status": "needs_human",
+  "summary": "Documentation updated to match the reviewed implementation.",
+  "artifacts": [{ "path": "README.md", "kind": "documentation", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" }],
+  "errors": [],
+  "created_at": "2026-08-19T00:00:00.000Z",
+  "payload": {
+    "ticket_id": "TICKET-001",
+    "updated_documents": ["README.md", "docs/usage.md"],
+    "verified_commands": ["npm run harness:validate", "npm run build"],
+    "coverage": ["Setup, validation, execution, approval, and resume"],
+    "approval_request": { "id": "APPROVAL-MERGE-EXAMPLE", "gate": "merge_approval", "status": "pending", "question": "Approve completion of TICKET-001?", "requested_at": "2026-08-19T00:00:00.000Z", "decided_at": null, "decided_by": null, "decision_note": null }
+  }
+}

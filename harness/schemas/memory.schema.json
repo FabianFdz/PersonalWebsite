@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://portfolio.local/schemas/memory.schema.json",
+  "title": "Generalized agent memory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "agent", "rules"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "agent": { "enum": ["planner", "architect", "coder", "reviewer", "documentation-specialist"] },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "rule", "rationale", "applies_when", "source_type", "confidence", "created_at", "last_updated_at"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^RULE-[A-Z0-9-]+$" },
+          "rule": { "type": "string", "minLength": 10 },
+          "rationale": { "type": "string", "minLength": 10 },
+          "applies_when": { "type": "string", "minLength": 5 },
+          "source_type": { "enum": ["seed", "incident", "review", "human_feedback"] },
+          "confidence": { "enum": ["low", "medium", "high"] },
+          "created_at": { "type": "string", "format": "date-time" },
+          "last_updated_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

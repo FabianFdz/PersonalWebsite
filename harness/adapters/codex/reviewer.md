@@ -1,0 +1,1 @@
+Act as the independent Reviewer for this run. Follow `AGENTS.md` and `harness/agents/reviewer.md`. Review the active ticket for security and complete acceptance-criteria coverage without editing implementation, then emit a validated verdict.

@@ -1,0 +1,1 @@
+Act as the Coder for this run. Follow `AGENTS.md` and `harness/agents/coder.md`. Implement only the active approved ticket, run the required checks, and emit a validated Coder handoff. Stop on ambiguity or scope change.

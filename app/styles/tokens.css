@@ -1,0 +1,19 @@
+:root {
+  --color-paper: #f1eee8;
+  --color-ink: #171714;
+  --color-muted: #6f6b64;
+  --color-line: #c8c2b8;
+  --color-signal: #ff5a3c;
+  --color-night: #171816;
+  --color-night-text: #f4f0e9;
+  --color-night-muted: #a4a69f;
+  --color-night-line: #4a4b47;
+  --page-gutter: 3vw;
+  --section-block-space: 120px;
+  --font-micro: 700 10px/1.2 var(--font-geist-mono), monospace;
+  --motion-fast: 220ms;
+  --motion-medium: 520ms;
+  --motion-slow: 820ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}

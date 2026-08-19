@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://portfolio.local/schemas/architect-payload.schema.json",
+  "title": "Architect payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ticket_id", "adrs", "interfaces", "verification_plan", "approval_request"],
+  "properties": {
+    "ticket_id": { "type": "string", "pattern": "^TICKET-[0-9]{3}$" },
+    "adrs": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "title", "path", "status", "decisions_resolved"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^ADR-[0-9]{4}$" },
+          "title": { "type": "string", "minLength": 3 },
+          "path": { "type": "string", "pattern": "^docs/adr/.+\\.md$" },
+          "status": { "const": "proposed" },
+          "decisions_resolved": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 3 } }
+        }
+      }
+    },
+    "interfaces": { "type": "array", "items": { "type": "string", "minLength": 3 } },
+    "verification_plan": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 5 } },
+    "approval_request": { "$ref": "https://portfolio.local/schemas/approval.schema.json" }
+  }
+}

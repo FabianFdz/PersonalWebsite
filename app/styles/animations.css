@@ -1,0 +1,262 @@
+@keyframes header-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+@keyframes hero-title-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.28em) skewY(1.5deg);
+  }
+}
+
+@keyframes item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes signal-pulse {
+  50% {
+    transform: scale(1.16);
+    box-shadow: 0 0 0 7px rgba(255, 90, 60, 0.08);
+  }
+}
+
+@keyframes availability-pulse {
+  50% {
+    box-shadow: 0 0 0 7px rgba(62, 179, 108, 0.04);
+  }
+}
+
+@keyframes text-signal-pulse {
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes scroll-drift {
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.site-header {
+  animation: header-enter var(--motion-slow) var(--ease-out-expo) both;
+}
+
+.eyebrow {
+  animation: hero-enter var(--motion-slow) 100ms var(--ease-out-expo) both;
+}
+
+.hero-title-line {
+  animation: hero-title-enter 950ms 180ms var(--ease-out-expo) both;
+  transform-origin: left bottom;
+}
+
+.hero-title-line:nth-child(2) {
+  animation-delay: 290ms;
+}
+
+.hero-bottom {
+  animation: hero-enter var(--motion-slow) 440ms var(--ease-out-expo) both;
+}
+
+.scroll-note {
+  animation:
+    hero-enter var(--motion-slow) 650ms var(--ease-out-expo) both,
+    scroll-drift 2.8s 1.6s ease-in-out infinite;
+}
+
+.hero-title-dot {
+  animation: signal-pulse 3.2s 1.3s ease-in-out infinite;
+}
+
+.availability i {
+  animation: availability-pulse 2.6s ease-in-out infinite;
+}
+
+.motion-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(38px);
+  transition:
+    opacity var(--motion-slow) var(--ease-smooth),
+    transform var(--motion-slow) var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+
+.motion-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+.motion-ready [data-reveal].is-visible .experience-row,
+.motion-ready [data-reveal].is-visible .agent-track > div,
+.motion-ready [data-reveal].is-visible .capabilities > span,
+.motion-ready [data-reveal].is-visible .stack-card {
+  animation: item-enter var(--motion-medium) var(--ease-out-expo) backwards;
+  animation-delay: calc(100ms + var(--reveal-index, 0) * 45ms);
+}
+
+.site-navigation a,
+.case-copy a,
+.contact-row a {
+  transition:
+    color var(--motion-fast) ease,
+    transform var(--motion-fast) var(--ease-out-expo);
+}
+
+.site-navigation a:hover,
+.case-copy a:hover,
+.contact-row a:hover {
+  transform: translateY(-2px);
+}
+
+.case-copy a span,
+.contact-row a {
+  display: inline-block;
+}
+
+.case-copy a span {
+  transition: transform var(--motion-fast) var(--ease-out-expo);
+}
+
+.case-copy a:hover span {
+  transform: translate(3px, -3px);
+}
+
+.experience-row,
+.agent-track > div,
+.capabilities > span,
+.stack-card,
+.stack-icon {
+  transition:
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    transform var(--motion-medium) var(--ease-out-expo),
+    box-shadow var(--motion-medium) var(--ease-out-expo);
+}
+
+.experience-row:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.agent-track > div:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.agent-track > div span {
+  transition: transform var(--motion-fast) var(--ease-out-expo);
+}
+
+.agent-track > div:hover span {
+  transform: translateX(5px);
+}
+
+.capabilities > span::before {
+  display: inline-block;
+  transition: transform var(--motion-fast) var(--ease-out-expo);
+}
+
+.capabilities > span:hover::before {
+  transform: translateX(6px);
+}
+
+.stack-card-meta,
+.stack-card-main {
+  transition: transform var(--motion-medium) var(--ease-out-expo);
+}
+
+.stack-card:hover {
+  border-color: rgba(111, 107, 100, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(23, 23, 20, 0.04);
+}
+
+.stack-card:hover .stack-card-meta {
+  transform: translateY(-2px);
+}
+
+.stack-card:hover .stack-card-main {
+  transform: translateY(-4px);
+}
+
+.stack-card:hover .stack-icon {
+  transform: translateY(-3px) rotate(-2deg);
+}
+
+.stack-card:hover .stack-icon-set--layered .stack-icon:first-child {
+  transform: translate(-3px, 3px) rotate(-3deg);
+}
+
+.stack-card:hover .stack-icon-set--layered .stack-icon:last-child {
+  transform: translate(3px, -3px) rotate(3deg);
+}
+
+.contact-footer h2 span {
+  display: inline-block;
+  animation: text-signal-pulse 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .eyebrow,
+  .hero-title-line,
+  .hero-bottom,
+  .scroll-note,
+  .hero-title-dot,
+  .availability i,
+  .contact-footer h2 span,
+  .motion-ready [data-reveal].is-visible .experience-row,
+  .motion-ready [data-reveal].is-visible .agent-track > div,
+  .motion-ready [data-reveal].is-visible .capabilities > span,
+  .motion-ready [data-reveal].is-visible .stack-card {
+    animation: none;
+  }
+
+  .motion-ready [data-reveal],
+  .motion-ready [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .experience-row,
+  .agent-track > div,
+  .agent-track > div span,
+  .capabilities > span,
+  .capabilities > span::before,
+  .stack-card,
+  .stack-card-meta,
+  .stack-card-main,
+  .stack-icon,
+  .case-copy a,
+  .case-copy a span,
+  .contact-row a {
+    transition: none;
+  }
+
+  .stack-card:hover,
+  .stack-card:hover .stack-card-meta,
+  .stack-card:hover .stack-card-main,
+  .stack-card:hover .stack-icon,
+  .stack-card:hover .stack-icon-set--layered .stack-icon,
+  .agent-track > div:hover span,
+  .capabilities > span:hover::before,
+  .case-copy a:hover,
+  .case-copy a:hover span,
+  .contact-row a:hover {
+    transform: none;
+  }
+}

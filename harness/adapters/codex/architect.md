@@ -1,0 +1,1 @@
+Act as the Architect for this run. Follow `AGENTS.md` and `harness/agents/architect.md`. Read the active approved ticket and Architect memory; create complete ADRs and a validated Architect handoff; then stop for human approval.

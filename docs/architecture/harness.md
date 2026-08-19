@@ -1,0 +1,59 @@
+# Harness architecture
+
+## Control flow
+
+```text
+Epic → Planner → [human plan gate] → Architect → [human architecture gate]
+     → Coder → Reviewer ─changes requested→ Coder
+                         └approved→ Documentation Specialist
+                                      → [human merge gate] → Complete
+```
+
+At each arrow the producing role writes a JSON envelope and role-specific payload. Validation is a transaction boundary: only a valid artifact may update `harness/status.json`.
+
+## Surfaces
+
+- **Product plane:** app code, tests, `docs/epics`, tickets, ADRs, and user documentation.
+- **Control plane:** `harness/config.json`, `harness/status.json`, schemas, run artifacts, and the CLI.
+- **Provider adapters:** `.claude/agents` and `harness/adapters/codex`; neither owns business rules.
+- **Memory:** one compact JSON rule set per role. Rules are generalized instructions, not event history.
+
+## Implementation boundaries
+
+- `scripts/harness.mjs` is only the composition root and CLI router.
+- `scripts/harness/commands.mjs` coordinates use cases without owning persistence or transition rules.
+- `scripts/harness/workflow.mjs` contains pure state-transition policy and has no filesystem dependency.
+- `scripts/harness/status-repository.mjs` owns validated, atomic status persistence.
+- `scripts/harness/epic-catalog.mjs` owns epic discovery.
+- `scripts/validation/schema-registry.mjs` owns JSON Schema compilation.
+- `scripts/validation/*-policy.mjs` each own one family of cross-field domain invariants; `semantic-policies.mjs` is their stable public facade.
+- `scripts/validation/agent-output-validator.mjs` routes envelopes to role contracts.
+- `scripts/validation/control-plane-validator.mjs` coordinates repository-wide validation.
+
+High-level commands receive these collaborators explicitly. This keeps workflow policy testable without touching the production status file and prevents validation or filesystem details from leaking into CLI routing.
+
+## Resume model
+
+`status.json` is a materialized state machine. `checkpoint.resume_from` contains a human-readable next action; `last_validated_artifact` names the last trustworthy boundary. On restart, validate the full repository control plane before reading the checkpoint. Pending approvals always take precedence over agent work.
+
+## Artifact convention
+
+```text
+harness/runs/RUN-<id>/ROUND-001/TICKET-001/
+  planner.output.json
+  architect.output.json
+  coder.output.json
+  reviewer.output.json
+  documentation-specialist.output.json
+```
+
+Every listed artifact has a SHA-256 digest in the producing envelope. Mutating a prior artifact invalidates downstream evidence; corrections are new attempts, not overwrites.
+
+## Security boundaries
+
+- Model output is untrusted until schema validation succeeds.
+- Agents cannot approve human gates.
+- Status is validated before atomic persistence; invalid transitions never replace the last valid file.
+- Reviewer does not edit implementation.
+- No secrets belong in prompts, state, memory, or handoffs.
+- `additionalProperties: false` rejects accidental or adversarial fields.

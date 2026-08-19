@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "agent": "documentation-specialist",
+  "rules": [
+    {
+      "id": "RULE-DOCS-001",
+      "rule": "Document only commands and behavior verified against the current reviewed implementation.",
+      "rationale": "Aspirational documentation is an operational defect and breaks resumability.",
+      "applies_when": "Updating user, architecture, or operations documentation",
+      "source_type": "seed",
+      "confidence": "high",
+      "created_at": "2026-08-19T00:00:00.000Z",
+      "last_updated_at": "2026-08-19T00:00:00.000Z"
+    }
+  ]
+}
