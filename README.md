@@ -25,6 +25,25 @@ Open `http://localhost:3000`.
 
 Before publishing, replace the GitHub and LinkedIn placeholders in both files under `app/i18n/locales/` with verified URLs. Keep the English and Spanish professional copy aligned when the source CV changes.
 
+## Deploy to Vercel from GitHub
+
+The project keeps its existing local and Sites/Cloudflare workflow while using Nitro for Vercel builds.
+
+1. Push the repository to GitHub.
+2. In Vercel, create a project and import `FabianFdz/PersonalWebsite`.
+3. Keep the repository root as the Root Directory. `vercel.json` supplies the build command; leave Vercel's Output Directory override empty because Nitro generates the native Build Output API structure. No environment variables are required for the current portfolio.
+4. Deploy the `main` branch.
+5. Under **Project → Settings → Domains**, add `fabianfdz.dev` and `www.fabianfdz.dev`. Make `fabianfdz.dev` canonical and redirect `www` to it.
+6. Add the exact DNS records shown by Vercel at the domain registrar. Vercel provisions HTTPS after DNS verification.
+
+Validate the Vercel artifact locally with:
+
+```bash
+npm run build:vercel
+```
+
+Nitro generates Vercel's deployment artifact under `.vercel/output/`. The entire `.vercel/` directory is ignored by Git and must not be committed.
+
 ## Harness quick start
 
 ```bash
@@ -54,6 +73,7 @@ See [docs/usage.md](docs/usage.md) for the complete workflow and [docs/architect
 | --- | --- |
 | `npm run dev` | Start the portfolio locally |
 | `npm run build` | Create a production build |
+| `npm run build:vercel` | Create the Nitro artifact consumed by Vercel |
 | `npm test` | Build and run automated checks |
 | `npm run lint` | Run source linting |
 | `npm run harness:validate` | Validate schemas, state, memories, and examples |
