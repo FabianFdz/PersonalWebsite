@@ -42,7 +42,10 @@ export function HeroSection({
         </p>
         <p className="intro">{introduction}</p>
       </div>
-      <div className="scroll-note" aria-hidden="true">{scrollPrompt}</div>
+      <div className="scroll-note" aria-hidden="true">
+        <span className="scroll-text">{scrollPrompt}</span>
+        <span className="scroll-arrow">↓</span>
+      </div>
     </section>
   );
 }

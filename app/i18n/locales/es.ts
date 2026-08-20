@@ -12,11 +12,11 @@ export const spanishContent = {
   identity: {
     initials: "FF",
     name: {
-      full: "Fabian Fernández",
-      displayLines: ["Fabian", "Fernández"],
+      full: "Fabián Fernández",
+      displayLines: ["Fabián", "Fernández"],
     },
-    location: "SAN JOSÉ, COSTA RICA",
-    coordinates: "10°N / 84°W",
+    location: "CARTAGO, COSTA RICA",
+    coordinates: "9.8642°N / 83.9199°W",
     roleLines: ["Senior Software Engineer", "& GenAI Builder"],
     introduction:
       "Convierto problemas ambiguos en productos claros: experiencias web, plataformas cloud y sistemas de IA que mantienen a las personas al mando. Este es mi rincón de internet.",
@@ -34,7 +34,7 @@ export const spanishContent = {
     stack: "STACK",
     contact: "CONTACTO",
   },
-  scrollPrompt: "DESLIZA PARA EXPLORAR ↓",
+  scrollPrompt: "DESLIZA PARA EXPLORAR",
   experience: [
     {
       period: "ACTUALIDAD",
@@ -64,8 +64,8 @@ export const spanishContent = {
       "Un harness multiagente que transforma epics en tickets, decisiones arquitectónicas, código revisado y documentación, con contratos JSON, checkpoints reanudables y gates de aprobación.",
     link: {
       label: "VER ARQUITECTURA",
-      href: "https://github.com/",
-      accessibilityLabel: "Configurar enlace al repositorio",
+      href: "https://github.com/FabianFdz/PersonalWebsite",
+      accessibilityLabel: "Ver la arquitectura del proyecto destacado en GitHub",
     },
     stages: ["PLANNER", "ARCHITECT", "CODER", "REVIEWER", "DOCS"],
   },
@@ -115,19 +115,18 @@ export const spanishContent = {
   contact: {
     prompt: "¿Estás construyendo algo difícil?",
     callToAction: "Hablemos",
-    configurationHint: "Configura tus enlaces en el archivo de idioma español",
     links: [
-      { label: "LINKEDIN", href: "https://www.linkedin.com/" },
-      { label: "GITHUB", href: "https://github.com/" },
+      { label: "LINKEDIN", href: "https://www.linkedin.com/in/fabianfdz" },
+      { label: "GITHUB", href: "https://github.com/FabianFdz" },
     ],
-    signature: "FABIAN FERNÁNDEZ · SENIOR SOFTWARE ENGINEER + GENAI",
+    signature: "FABIÁN FERNÁNDEZ · SENIOR SOFTWARE ENGINEER + GENAI",
   },
   seo: {
-    title: "Fabian Fernández — Senior Software Engineer & GenAI Builder",
+    title: "Fabián Fernández — Senior Software Engineer & GenAI Builder",
     description:
-      "Portfolio de Fabian Fernández: ingeniería de software, productos GenAI, sistemas multiagente y experiencias web.",
+      "Portfolio de Fabián Fernández: ingeniería de software, productos GenAI, sistemas multiagente y experiencias web.",
     socialImagePath: "/og.png",
-    socialImageAlt: "Fabian Fernández — Software + GenAI",
+    socialImageAlt: "Fabián Fernández — Software + GenAI",
     socialImageWidth: 1736,
     socialImageHeight: 907,
   },

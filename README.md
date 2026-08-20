@@ -1,4 +1,4 @@
-# Fabian Fernández — Portfolio + Agentic Harness
+# Fabián Fernández — Portfolio + Agentic Harness
 
 A production-ready personal portfolio and a provider-neutral, human-in-the-loop harness for developing it with Claude Code or Codex.
 
@@ -43,7 +43,7 @@ npm run harness -- status
 Only a human approves a pending gate:
 
 ```bash
-npm run harness -- approve <APPROVAL-ID> "Fabian Fernandez" "Scope approved"
+npm run harness -- approve <APPROVAL-ID> "Fabián Fernández" "Scope approved"
 ```
 
 See [docs/usage.md](docs/usage.md) for the complete workflow and [docs/architecture/harness.md](docs/architecture/harness.md) for architecture.

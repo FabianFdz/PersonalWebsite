@@ -19,12 +19,16 @@ test("server-renders the portfolio and social metadata", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<html lang="en">/i);
-  assert.match(html, /Fabian Fernández/);
+  assert.match(html, /Fabián Fernández/);
+  assert.match(html, /CARTAGO, COSTA RICA/);
+  assert.match(html, /9\.8642°N \/ 83\.9199°W/);
+  assert.doesNotMatch(html, /SAN JOSÉ, COSTA RICA|10°N \/ 84°W/);
   assert.match(html, /Senior Software Engineer/);
   assert.match(html, /HUMAN-IN-THE-LOOP/);
   assert.match(html, /I turn ambiguous problems into clear products/);
   assert.match(html, /aria-label="Language selector"/);
   assert.match(html, /aria-pressed="true"[^>]*>EN<\/button>/i);
+  assert.match(html, /class="scroll-arrow">↓<\/span>/);
   assert.match(html, /data-reveal="true"/);
   assert.match(html, /class="stack-icon stack-icon--typescript"/);
   assert.match(html, /class="stack-icon-set stack-icon-set--layered"/);

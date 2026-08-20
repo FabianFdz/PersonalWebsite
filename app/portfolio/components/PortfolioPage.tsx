@@ -84,7 +84,6 @@ export function PortfolioPage() {
         label={sectionLabels.contact}
         prompt={contact.prompt}
         callToAction={contact.callToAction}
-        configurationHint={contact.configurationHint}
         links={contact.links}
         signature={contact.signature}
       />

@@ -91,7 +91,6 @@ export type PortfolioContent = {
   contact: {
     prompt: string;
     callToAction: string;
-    configurationHint: string;
     links: readonly SocialLink[];
     signature: string;
   };

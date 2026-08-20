@@ -151,6 +151,20 @@
   position: absolute;
   right: var(--page-gutter);
   top: 42%;
-  writing-mode: vertical-rl;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
   color: var(--color-muted);
+}
+
+.scroll-text {
+  writing-mode: vertical-rl;
+}
+
+.scroll-arrow {
+  display: block;
+  width: 1em;
+  line-height: 1;
+  text-align: center;
 }
