@@ -64,4 +64,14 @@ export function assertEpicStatusPolicy(catalog) {
 
   const active = catalog.epics.filter((epic) => epic.status === "in_progress");
   if (active.length > 1) throw new Error("Epic status: at most one epic may be in_progress");
+
+  const highestEpicNumber = catalog.epics.reduce(
+    (highest, epic) => Math.max(highest, Number(epic.id.slice(5))),
+    0,
+  );
+  if (catalog.next_epic_number <= highestEpicNumber) {
+    throw new Error(
+      "Epic status: next_epic_number must be greater than every registered epic id",
+    );
+  }
 }

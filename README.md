@@ -48,7 +48,7 @@ Nitro generates Vercel's deployment artifact under `.vercel/output/`. The entire
 
 ```bash
 npm run harness:validate
-npm run harness -- init EPIC-001
+npm run harness -- sprint
 npm run harness -- next
 ```
 
@@ -96,6 +96,7 @@ harness/agents/         Canonical provider-neutral role prompts
 harness/adapters/codex/ Codex launch prompts
 harness/schemas/        Deterministic JSON contracts
 harness/memory/         Generalized per-role lessons
+harness/epic-status.json Ordered epic lifecycle and hard dependencies
 harness/status.json     Resumable materialized state
 scripts/core/           Filesystem paths and JSON infrastructure
 scripts/harness/        Workflow policy, persistence, commands, presentation

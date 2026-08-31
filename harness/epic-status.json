@@ -1,52 +1,13 @@
 {
   "schema_version": "1.0",
+  "next_epic_number": 6,
   "epics": [
-    {
-      "id": "EPIC-001",
-      "title": "Credible portfolio identity and CV-backed content model",
-      "file": "docs/epics/EPIC-001-portfolio-foundation.md",
-      "status": "pending",
-      "dependencies": [],
-      "run_id": null,
-      "started_at": null,
-      "completed_at": null
-    },
-    {
-      "id": "EPIC-002",
-      "title": "Responsive editorial portfolio experience",
-      "file": "docs/epics/EPIC-002-editorial-experience.md",
-      "status": "pending",
-      "dependencies": ["EPIC-001"],
-      "run_id": null,
-      "started_at": null,
-      "completed_at": null
-    },
-    {
-      "id": "EPIC-003",
-      "title": "Projects, contact, accessibility, performance, and metadata",
-      "file": "docs/epics/EPIC-003-projects-contact-quality.md",
-      "status": "pending",
-      "dependencies": ["EPIC-002"],
-      "run_id": null,
-      "started_at": null,
-      "completed_at": null
-    },
     {
       "id": "EPIC-004",
       "title": "Deterministic, resumable agentic control plane",
       "file": "docs/epics/EPIC-004-agentic-control-plane.md",
       "status": "pending",
       "dependencies": [],
-      "run_id": null,
-      "started_at": null,
-      "completed_at": null
-    },
-    {
-      "id": "EPIC-005",
-      "title": "Provider-equivalent agent adapters",
-      "file": "docs/epics/EPIC-005-agent-adapters.md",
-      "status": "pending",
-      "dependencies": ["EPIC-004"],
       "run_id": null,
       "started_at": null,
       "completed_at": null

@@ -3,7 +3,7 @@ import { presentStatus, presentValidation } from "./presenter.mjs";
 
 function assertEpicId(epicId) {
   if (!/^EPIC-[0-9]{3}$/.test(epicId || "")) {
-    throw new Error("Usage: npm run harness -- init EPIC-001");
+    throw new Error("Usage: npm run harness -- init EPIC-NNN");
   }
 }
 

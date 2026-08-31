@@ -20,7 +20,7 @@ npm run harness -- next
 
 The command selects the first `pending` epic in catalog order, provided its hard dependencies are complete. If a run already exists, it resumes from the durable checkpoint. Only one epic and one round are active at a time.
 
-For an intentional manual selection, `npm run harness -- init EPIC-001` remains available but requires that epic to be pending, dependency-ready, and no other epic to be active.
+For an intentional manual selection, `npm run harness -- init EPIC-004` remains available but requires that epic to be pending, dependency-ready, and no other epic to be active.
 
 ## 3. Run the requested role
 

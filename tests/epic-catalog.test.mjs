@@ -36,6 +36,7 @@ test("epic catalog selects in array order and persists lifecycle transitions", a
     await writeFile(path.join(directory, secondFile), "# Second\n");
     await writeFile(statusFile, `${JSON.stringify({
       schema_version: "1.0",
+      next_epic_number: 3,
       epics: [
         entry("EPIC-001", firstFile),
         entry("EPIC-002", secondFile, ["EPIC-001"]),
@@ -64,7 +65,11 @@ test("epic policy rejects dependency cycles and multiple active epics", () => {
   const second = entry("EPIC-002", "docs/epics/EPIC-002-second.md", ["EPIC-001"]);
 
   assert.throws(
-    () => assertEpicStatusPolicy({ schema_version: "1.0", epics: [first, second] }),
+    () => assertEpicStatusPolicy({
+      schema_version: "1.0",
+      next_epic_number: 3,
+      epics: [first, second],
+    }),
     /dependency cycle/,
   );
 
@@ -76,8 +81,26 @@ test("epic policy rejects dependency cycles and multiple active epics", () => {
     epic.started_at = startedAt;
   }
   assert.throws(
-    () => assertEpicStatusPolicy({ schema_version: "1.0", epics: [first, second] }),
+    () => assertEpicStatusPolicy({
+      schema_version: "1.0",
+      next_epic_number: 3,
+      epics: [first, second],
+    }),
     /at most one epic/,
+  );
+
+  for (const epic of [first, second]) {
+    epic.status = "pending";
+    epic.run_id = null;
+    epic.started_at = null;
+  }
+  assert.throws(
+    () => assertEpicStatusPolicy({
+      schema_version: "1.0",
+      next_epic_number: 2,
+      epics: [first, second],
+    }),
+    /next_epic_number/,
   );
 });
 
@@ -106,6 +129,7 @@ test("sprint command starts, resumes, finalizes, and only then selects the next 
     await writeFile(path.join(directory, secondFile), "# Second\n");
     await writeFile(statusFile, `${JSON.stringify({
       schema_version: "1.0",
+      next_epic_number: 3,
       epics: [
         entry("EPIC-001", firstFile),
         entry("EPIC-002", secondFile, ["EPIC-001"]),

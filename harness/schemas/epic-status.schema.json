@@ -4,9 +4,10 @@
   "title": "Ordered epic delivery status",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "epics"],
+  "required": ["schema_version", "next_epic_number", "epics"],
   "properties": {
     "schema_version": { "const": "1.0" },
+    "next_epic_number": { "type": "integer", "minimum": 1 },
     "epics": {
       "type": "array",
       "items": {

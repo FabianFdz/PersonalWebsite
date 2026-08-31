@@ -48,7 +48,7 @@ Register only hard dependencies in `dependencies`. Explain overlap or sequencing
 
 ## Write the epic
 
-Allocate the next ID as one greater than the highest registered numeric ID; never reuse gaps. Use a concise slug and this structure when each section adds information:
+Allocate the ID from `next_epic_number` in `harness/epic-status.json`, then increment that counter when registering the epic. Never derive the next ID from the remaining files or reuse an ID deleted from the catalog. Use a concise slug and this structure when each section adds information:
 
 ```markdown
 # EPIC-NNN — Outcome-oriented title
