@@ -13,6 +13,7 @@ export function projectPath(...segments) {
 export const harnessPaths = {
   schemas: projectPath("harness", "schemas"),
   status: projectPath("harness", "status.json"),
+  epicStatus: projectPath("harness", "epic-status.json"),
   memory: projectPath("harness", "memory"),
   examples: projectPath("harness", "examples"),
   epics: projectPath("docs", "epics"),

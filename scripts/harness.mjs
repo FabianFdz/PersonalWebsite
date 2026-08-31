@@ -5,6 +5,7 @@ import { FileStatusRepository } from "./harness/status-repository.mjs";
 import { validateAgentOutput } from "./validation/agent-output-validator.mjs";
 import {
   validateControlPlane,
+  validateEpicStatus,
   validateStatus,
 } from "./validation/control-plane-validator.mjs";
 import { createSchemaRegistry } from "./validation/schema-registry.mjs";
@@ -22,7 +23,12 @@ async function createApplication() {
     validateStatus: (status) => validateStatus(status, schemaRegistry),
     clock,
   });
-  const epicCatalog = new FileEpicCatalog(harnessPaths.epics);
+  const epicCatalog = new FileEpicCatalog({
+    epicsDirectory: harnessPaths.epics,
+    statusFile: harnessPaths.epicStatus,
+    validateEpicStatus: (epicStatus) =>
+      validateEpicStatus(epicStatus, schemaRegistry),
+  });
 
   return createHarnessCommands({
     projectId: "fabian-portfolio",
@@ -44,6 +50,8 @@ async function run() {
   switch (commandName) {
     case "init":
       return commands.init(commandArguments[0]);
+    case "sprint":
+      return commands.sprint();
     case "ingest":
       return commands.ingest(commandArguments[0]);
     case "approve":
@@ -63,7 +71,7 @@ async function run() {
       return commands.status();
     default:
       throw new Error(
-        "Commands: init, ingest, validate, status, next, resume, approve, reject",
+        "Commands: sprint, init, ingest, validate, status, next, resume, approve, reject",
       );
   }
 }

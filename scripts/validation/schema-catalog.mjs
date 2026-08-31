@@ -1,6 +1,7 @@
 export const schemaIds = {
   agentOutput: "https://portfolio.local/schemas/agent-output.schema.json",
   approval: "https://portfolio.local/schemas/approval.schema.json",
+  epicStatus: "https://portfolio.local/schemas/epic-status.schema.json",
   status: "https://portfolio.local/schemas/status.schema.json",
   memory: "https://portfolio.local/schemas/memory.schema.json",
 };

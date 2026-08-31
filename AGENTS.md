@@ -5,10 +5,11 @@ This repository contains a personal portfolio and a resumable, human-in-the-loop
 ## Source of truth
 
 1. `harness/status.json` — current run, round, ticket, checkpoint, and approvals.
-2. `docs/epics/` — product intent and acceptance criteria.
-3. `docs/tickets/` and `docs/adr/` — planned work and technical decisions.
-4. `harness/memory/<agent>.json` — generalized rules learned by each role.
-5. `harness/schemas/` — mandatory machine contracts.
+2. `harness/epic-status.json` — ordered epic lifecycle and hard dependencies.
+3. `docs/epics/` — product intent and acceptance criteria.
+4. `docs/tickets/` and `docs/adr/` — planned work and technical decisions.
+5. `harness/memory/<agent>.json` — generalized rules learned by each role.
+6. `harness/schemas/` — mandatory machine contracts.
 
 Never advance a phase from an output that has not passed `npm run harness:validate`. Never edit another role's output to make it pass; return a structured failure to that role.
 

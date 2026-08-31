@@ -14,5 +14,5 @@ export function presentStatus(status) {
 }
 
 export function presentValidation(summary) {
-  return `Harness valid: ${summary.schemas} schemas, ${summary.memories} memories, ${summary.examples} examples.`;
+  return `Harness valid: ${summary.schemas} schemas, ${summary.epics} epics, ${summary.memories} memories, ${summary.examples} examples.`;
 }

@@ -3,7 +3,7 @@
 ## Control flow
 
 ```text
-Epic → Planner → [human plan gate] → Architect → [human architecture gate]
+First pending epic → Planner → [human plan gate] → Architect → [human architecture gate]
      → Coder → Reviewer ─changes requested→ Coder
                          └approved→ Documentation Specialist
                                       → [human merge gate] → Complete
@@ -15,6 +15,7 @@ At each arrow the producing role writes a JSON envelope and role-specific payloa
 
 - **Product plane:** app code, tests, `docs/epics`, tickets, ADRs, and user documentation.
 - **Control plane:** `harness/config.json`, `harness/status.json`, schemas, run artifacts, and the CLI.
+- **Epic catalog:** `harness/epic-status.json` owns ordered lifecycle and hard dependencies; Markdown epic files own product intent.
 - **Provider adapters:** `.claude/agents` and `harness/adapters/codex`; neither owns business rules.
 - **Memory:** one compact JSON rule set per role. Rules are generalized instructions, not event history.
 
@@ -24,7 +25,7 @@ At each arrow the producing role writes a JSON envelope and role-specific payloa
 - `scripts/harness/commands.mjs` coordinates use cases without owning persistence or transition rules.
 - `scripts/harness/workflow.mjs` contains pure state-transition policy and has no filesystem dependency.
 - `scripts/harness/status-repository.mjs` owns validated, atomic status persistence.
-- `scripts/harness/epic-catalog.mjs` owns epic discovery.
+- `scripts/harness/epic-catalog.mjs` owns epic discovery and atomically persists epic lifecycle transitions.
 - `scripts/validation/schema-registry.mjs` owns JSON Schema compilation.
 - `scripts/validation/*-policy.mjs` each own one family of cross-field domain invariants; `semantic-policies.mjs` is their stable public facade.
 - `scripts/validation/agent-output-validator.mjs` routes envelopes to role contracts.
@@ -35,6 +36,12 @@ High-level commands receive these collaborators explicitly. This keeps workflow 
 ## Resume model
 
 `status.json` is a materialized state machine. `checkpoint.resume_from` contains a human-readable next action; `last_validated_artifact` names the last trustworthy boundary. On restart, validate the full repository control plane before reading the checkpoint. Pending approvals always take precedence over agent work.
+
+## Sprint selection and recovery
+
+`npm run harness -- sprint` starts the first `pending` epic in catalog order when no run is active, or prints the checkpoint for the active run. A selected epic must have only `completed` hard dependencies. Draft epics are never eligible.
+
+Run initialization persists `harness/status.json` before marking the epic `in_progress`. If interruption occurs between those writes, the next sprint invocation reconciles the pending catalog entry to the active run. When the run reaches `complete`, the next invocation marks the epic `completed` and stops; a later invocation may start another epic. This preserves one-epic-per-sprint intent and makes the two-file transition recoverable.
 
 ## Artifact convention
 

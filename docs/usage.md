@@ -9,14 +9,18 @@ npm run harness:validate
 
 Validation compiles every schema, validates `status.json`, validates all five memory files and example handoffs, checks Planner dependency semantics, prevents Reviewer approval when criteria or blocking findings remain unresolved, and rejects any agent that tries to decide a human gate.
 
-## 2. Start one epic
+It also validates the ordered epic lifecycle in `harness/epic-status.json`, including document registration, dependency references, cycles, and the single-active-epic invariant.
+
+## 2. Start or resume the next sprint
 
 ```bash
-npm run harness -- init EPIC-001
+npm run harness -- sprint
 npm run harness -- next
 ```
 
-Only one epic and one round are active at a time. Initialization writes a new run ID and a durable checkpoint.
+The command selects the first `pending` epic in catalog order, provided its hard dependencies are complete. If a run already exists, it resumes from the durable checkpoint. Only one epic and one round are active at a time.
+
+For an intentional manual selection, `npm run harness -- init EPIC-001` remains available but requires that epic to be pending, dependency-ready, and no other epic to be active.
 
 ## 3. Run the requested role
 
@@ -83,6 +87,8 @@ npm run harness -- resume
 ```
 
 The command prints the safe next action from the last validated checkpoint. A pending human decision always wins over provider chat history.
+
+After the final merge approval makes the run complete, invoke the sprint skill once more. It records the epic as `completed` and stops; a later invocation starts the next pending epic.
 
 ## 7. Review loop
 

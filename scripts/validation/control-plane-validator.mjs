@@ -6,6 +6,7 @@ import { validateAgentOutput } from "./agent-output-validator.mjs";
 import { schemaIds } from "./schema-catalog.mjs";
 import { assertSchema, createSchemaRegistry } from "./schema-registry.mjs";
 import {
+  assertEpicStatusPolicy,
   assertMemoryPolicy,
   assertStatusPolicy,
 } from "./semantic-policies.mjs";
@@ -17,6 +18,35 @@ function relativeProjectPath(file) {
 export function validateStatus(status, registry, label = "harness/status.json") {
   assertSchema(registry, schemaIds.status, status, label);
   assertStatusPolicy(status);
+}
+
+export function validateEpicStatus(
+  epicStatus,
+  registry,
+  label = "harness/epic-status.json",
+) {
+  assertSchema(registry, schemaIds.epicStatus, epicStatus, label);
+  assertEpicStatusPolicy(epicStatus);
+}
+
+async function validateEpicCatalog(registry) {
+  const epicStatus = await readJson(harnessPaths.epicStatus);
+  validateEpicStatus(epicStatus, registry);
+
+  const markdownFiles = (await fs.readdir(harnessPaths.epics))
+    .filter((name) => /^EPIC-[0-9]{3}-.+\.md$/.test(name))
+    .sort();
+  const registeredFiles = epicStatus.epics
+    .map((epic) => path.basename(epic.file))
+    .sort();
+
+  if (JSON.stringify(markdownFiles) !== JSON.stringify(registeredFiles)) {
+    throw new Error(
+      "Epic status: every epic Markdown file must be registered exactly once",
+    );
+  }
+
+  return epicStatus.epics.length;
 }
 
 async function validateMemories(registry) {
@@ -55,6 +85,7 @@ export async function validateControlPlane(extraFile, existingRegistry) {
   const status = await readJson(harnessPaths.status);
 
   validateStatus(status, registry);
+  const epics = await validateEpicCatalog(registry);
   const memories = await validateMemories(registry);
   const examples = await validateExamples(registry);
 
@@ -66,6 +97,7 @@ export async function validateControlPlane(extraFile, existingRegistry) {
     registry,
     summary: {
       schemas: Object.keys(registry.schemas).length,
+      epics,
       memories,
       examples,
     },

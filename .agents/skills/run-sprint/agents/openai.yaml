@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run Sprint"
+  short_description: "Run the next resumable harness sprint"
+  default_prompt: "Use $run-sprint to select or resume the next pending epic and advance it to the next human gate."

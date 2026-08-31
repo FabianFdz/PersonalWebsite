@@ -24,7 +24,7 @@ if (isDirectExecution()) {
   try {
     const result = await validateAll(process.argv[2]);
     console.log(
-      `Harness valid: ${result.schemas} schemas, ${result.memories} memories, ${result.examples} examples.`,
+      `Harness valid: ${result.schemas} schemas, ${result.epics} epics, ${result.memories} memories, ${result.examples} examples.`,
     );
   } catch (error) {
     console.error(`Harness validation failed: ${error.message}`);

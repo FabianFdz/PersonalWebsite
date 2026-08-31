@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Epic"
+  short_description: "Challenge and prepare sprint-ready epics"
+  default_prompt: "Use $create-epic to challenge this idea and turn it into a concise, sprint-ready epic."
