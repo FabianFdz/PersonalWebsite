@@ -111,6 +111,20 @@ Edit only that role's file in `harness/memory/`, then validate. Good rules are g
 }
 ```
 
+## Local PoC workspace
+
+Keep each PoC as a separate repository under `pocs/<slug>/`. The parent portfolio repository tracks only `pocs/.gitkeep` and ignores all child contents.
+
+Before a harness role works on a PoC:
+
+1. The approved epic or ticket must identify the exact `pocs/<slug>` target.
+2. Verify that the target exists and contains its own `.git` boundary; a missing checkout blocks the role instead of authorizing it to invent or replace the repository.
+3. Run the harness and persist handoffs from the portfolio root.
+4. Run implementation checks and Git operations inside the child repository, for example `git -C pocs/<slug> status`.
+5. Report parent control-plane changes and child product changes separately. Never stage a child repository through the parent.
+
+Ignored local workspaces are not automatically included in portfolio validation, build output, or deployment. The active ticket must name the child repository's own deterministic checks.
+
 ## State recovery rules
 
 - Never hand-edit a stage to `passed`; ingest a validated role output.

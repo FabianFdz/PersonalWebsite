@@ -40,6 +40,15 @@ Codex launch prompts live in `harness/adapters/codex/`. Claude Code subagents li
 
 Approval is mandatory after planning, after architecture, when implementation changes scope/security/data handling, and before merge/release. Agents may create approval requests but must never approve them.
 
+## PoC workspaces
+
+- `pocs/<slug>/` contains local checkouts of independently versioned PoC repositories. The parent repository ignores their contents except for `pocs/.gitkeep`.
+- The portfolio harness remains the control plane. An epic or ticket targeting a PoC must name its exact `pocs/<slug>` workspace before a role edits it.
+- Confirm the target contains its own `.git` boundary and run its build, tests, lint, and Git operations from that child repository.
+- Never stage, commit, or report a PoC's source as part of the portfolio repository. Parent and child changes require separate review evidence and commits.
+- Do not create, clone, replace, or delete a PoC repository unless the user or active approved ticket explicitly requests it.
+- Keep child-repository secrets and environment files out of harness state, prompts, handoffs, and portfolio artifacts.
+
 ## Product standards
 
 - Preserve accessibility, responsive behavior, semantic HTML, and reduced-motion support.

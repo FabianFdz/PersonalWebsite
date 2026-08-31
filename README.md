@@ -67,6 +67,18 @@ npm run harness -- approve <APPROVAL-ID> "Fabián Fernández" "Scope approved"
 
 See [docs/usage.md](docs/usage.md) for the complete workflow and [docs/architecture/harness.md](docs/architecture/harness.md) for architecture.
 
+## Local PoC repositories
+
+Place each independently versioned PoC checkout under `pocs/<slug>/`. The parent repository ignores everything in `pocs/` except `.gitkeep`, so every child keeps its own Git history, dependencies, tests, and deployment configuration.
+
+```text
+pocs/
+  my-first-poc/   # separate repository with its own .git
+  another-poc/    # separate repository with its own .git
+```
+
+Run harness commands from the portfolio root. When a ticket targets a PoC, it must name the exact child workspace; run product commands and Git operations inside that child repository. The portfolio build must never import or publish files from `pocs/`.
+
 ## Useful commands
 
 | Command | Purpose |
@@ -89,6 +101,7 @@ app/i18n/locales/       English and Spanish professional content
 app/portfolio/components Cohesive page sections and primitives
 app/portfolio/metadata.ts Metadata construction
 app/styles/             Tokens, base, section, and responsive styles
+pocs/                   Ignored local checkouts of independent PoC repositories
 docs/epics/             Product and harness epics
 docs/adr/               Accepted architecture decisions
 .claude/agents/         Claude Code role adapters

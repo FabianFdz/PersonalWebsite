@@ -39,3 +39,7 @@ yarn-error.log*
 /.wrangler/
 /outputs/
 /work/
+
+# local PoC repositories (independent Git roots)
+/pocs/*
+!/pocs/.gitkeep

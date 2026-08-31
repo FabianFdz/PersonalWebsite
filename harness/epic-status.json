@@ -1,11 +1,21 @@
 {
   "schema_version": "1.0",
-  "next_epic_number": 6,
+  "next_epic_number": 7,
   "epics": [
     {
       "id": "EPIC-004",
       "title": "Deterministic, resumable agentic control plane",
       "file": "docs/epics/EPIC-004-agentic-control-plane.md",
+      "status": "pending",
+      "dependencies": [],
+      "run_id": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "EPIC-006",
+      "title": "External PoC Labs directory",
+      "file": "docs/epics/EPIC-006-poc-labs-platform.md",
       "status": "pending",
       "dependencies": [],
       "run_id": null,

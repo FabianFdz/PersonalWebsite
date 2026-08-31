@@ -7,3 +7,4 @@ An epic remains `draft` while material product questions are open. It becomes `p
 | Epic | Outcome | Depends on |
 | --- | --- | --- |
 | [EPIC-004](EPIC-004-agentic-control-plane.md) | Deterministic resumable control plane | — |
+| [EPIC-006](EPIC-006-poc-labs-platform.md) | External PoC Labs directory | — |
