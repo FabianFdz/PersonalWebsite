@@ -76,4 +76,4 @@ Create or update all three catalog surfaces together:
 
 Use `draft` while material questions remain. Promote to `pending` only when the epic has a single coherent outcome, explicit boundaries, testable acceptance criteria, material edge cases, no unresolved dependency conflict, and no open question that would change planning. New `draft` or `pending` entries have null run and timestamp fields. Do not reorder existing entries unless the user explicitly changes priority.
 
-Run `npm run harness:validate` after every catalog write. Finish with a compact challenge summary: decisions made, edge cases incorporated, hard dependencies, assumptions, and whether the epic is `draft` or sprint-ready `pending`.
+Run `pnpm run harness:validate` after every catalog write. Finish with a compact challenge summary: decisions made, edge cases incorporated, hard dependencies, assumptions, and whether the epic is `draft` or sprint-ready `pending`.

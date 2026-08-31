@@ -39,7 +39,7 @@ High-level commands receive these collaborators explicitly. This keeps workflow 
 
 ## Sprint selection and recovery
 
-`npm run harness -- sprint` starts the first `pending` epic in catalog order when no run is active, or prints the checkpoint for the active run. A selected epic must have only `completed` hard dependencies. Draft epics are never eligible.
+`pnpm run harness -- sprint` starts the first `pending` epic in catalog order when no run is active, or prints the checkpoint for the active run. A selected epic must have only `completed` hard dependencies. Draft epics are never eligible.
 
 Run initialization persists `harness/status.json` before marking the epic `in_progress`. If interruption occurs between those writes, the next sprint invocation reconciles the pending catalog entry to the active run. When the run reaches `complete`, the next invocation marks the epic `completed` and stops; a later invocation may start another epic. This preserves one-epic-per-sprint intent and makes the two-file transition recoverable.
 

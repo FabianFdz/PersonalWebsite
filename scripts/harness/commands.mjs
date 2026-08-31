@@ -3,14 +3,14 @@ import { presentStatus, presentValidation } from "./presenter.mjs";
 
 function assertEpicId(epicId) {
   if (!/^EPIC-[0-9]{3}$/.test(epicId || "")) {
-    throw new Error("Usage: npm run harness -- init EPIC-NNN");
+    throw new Error("Usage: pnpm run harness -- init EPIC-NNN");
   }
 }
 
 function assertDecisionArguments(decision, approvalId, decidedBy) {
   if (!approvalId || !decidedBy) {
     throw new Error(
-      `Usage: npm run harness -- ${decision} APPROVAL-ID "Human name" [note]`,
+      `Usage: pnpm run harness -- ${decision} APPROVAL-ID "Human name" [note]`,
     );
   }
 }
@@ -127,7 +127,7 @@ export function createHarnessCommands({
 
     async ingest(file) {
       if (!file) {
-        throw new Error("Usage: npm run harness -- ingest <agent-output.json>");
+        throw new Error("Usage: pnpm run harness -- ingest <agent-output.json>");
       }
       const agentOutput = await validateAgentOutput(file);
       const currentStatus = await statusRepository.read();

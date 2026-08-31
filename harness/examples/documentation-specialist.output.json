@@ -13,7 +13,7 @@
   "payload": {
     "ticket_id": "TICKET-001",
     "updated_documents": ["README.md", "docs/usage.md"],
-    "verified_commands": ["npm run harness:validate", "npm run build"],
+    "verified_commands": ["pnpm run harness:validate", "pnpm run build"],
     "coverage": ["Setup, validation, execution, approval, and resume"],
     "approval_request": { "id": "APPROVAL-MERGE-EXAMPLE", "gate": "merge_approval", "status": "pending", "question": "Approve completion of TICKET-001?", "requested_at": "2026-08-19T00:00:00.000Z", "decided_at": null, "decided_by": null, "decision_note": null }
   }

@@ -1,0 +1,6 @@
+# Keep `packages` omitted: only this root project belongs to the workspace.
+# Repositories checked out under `pocs/` remain independent pnpm projects.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true

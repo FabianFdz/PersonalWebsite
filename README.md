@@ -14,11 +14,11 @@ A production-ready personal portfolio and a provider-neutral, human-in-the-loop 
 
 ## Quick start
 
-Requires Node.js 22.13 or newer.
+Requires Node.js 22.13 or newer and pnpm 11.21.0. Corepack can select the pinned pnpm version from `package.json`.
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Open `http://localhost:3000`.
@@ -39,7 +39,7 @@ The project keeps its existing local and Sites/Cloudflare workflow while using N
 Validate the Vercel artifact locally with:
 
 ```bash
-npm run build:vercel
+pnpm run build:vercel
 ```
 
 Nitro generates Vercel's deployment artifact under `.vercel/output/`. The entire `.vercel/` directory is ignored by Git and must not be committed.
@@ -47,22 +47,22 @@ Nitro generates Vercel's deployment artifact under `.vercel/output/`. The entire
 ## Harness quick start
 
 ```bash
-npm run harness:validate
-npm run harness -- sprint
-npm run harness -- next
+pnpm run harness:validate
+pnpm run harness -- sprint
+pnpm run harness -- next
 ```
 
 Run the named role in Claude Code or Codex. Validate and ingest its handoff:
 
 ```bash
-npm run harness -- ingest harness/runs/RUN-.../ROUND-001/planner.output.json
-npm run harness -- status
+pnpm run harness -- ingest harness/runs/RUN-.../ROUND-001/planner.output.json
+pnpm run harness -- status
 ```
 
 Only a human approves a pending gate:
 
 ```bash
-npm run harness -- approve <APPROVAL-ID> "Fabián Fernández" "Scope approved"
+pnpm run harness -- approve <APPROVAL-ID> "Fabián Fernández" "Scope approved"
 ```
 
 See [docs/usage.md](docs/usage.md) for the complete workflow and [docs/architecture/harness.md](docs/architecture/harness.md) for architecture.
@@ -70,6 +70,8 @@ See [docs/usage.md](docs/usage.md) for the complete workflow and [docs/architect
 ## Local PoC repositories
 
 Place each independently versioned PoC checkout under `pocs/<slug>/`. The parent repository ignores everything in `pocs/` except `.gitkeep`, so every child keeps its own Git history, dependencies, tests, and deployment configuration.
+
+Use pnpm in each child repository. Separate lockfiles preserve independent releases while pnpm's shared content-addressable store avoids keeping a full physical copy of the same package version for every PoC.
 
 ```text
 pocs/
@@ -83,14 +85,14 @@ Run harness commands from the portfolio root. When a ticket targets a PoC, it mu
 
 | Command | Purpose |
 | --- | --- |
-| `npm run dev` | Start the portfolio locally |
-| `npm run build` | Create a production build |
-| `npm run build:vercel` | Create the Nitro artifact consumed by Vercel |
-| `npm test` | Build and run automated checks |
-| `npm run lint` | Run source linting |
-| `npm run harness:validate` | Validate schemas, state, memories, and examples |
-| `npm run harness -- status` | Show the active checkpoint |
-| `npm run harness -- resume` | Print the exact safe resume action |
+| `pnpm run dev` | Start the portfolio locally |
+| `pnpm run build` | Create a production build |
+| `pnpm run build:vercel` | Create the Nitro artifact consumed by Vercel |
+| `pnpm test` | Build and run automated checks |
+| `pnpm run lint` | Run source linting |
+| `pnpm run harness:validate` | Validate schemas, state, memories, and examples |
+| `pnpm run harness -- status` | Show the active checkpoint |
+| `pnpm run harness -- resume` | Print the exact safe resume action |
 
 ## Project map
 

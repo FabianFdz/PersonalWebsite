@@ -22,4 +22,4 @@ Schemas must evolve compatibly or receive a new version. Validation failures sto
 
 ## Verification
 
-`npm run harness:validate` validates schemas, state, memory, and example handoffs and rejects unknown properties.
+`pnpm run harness:validate` validates schemas, state, memory, and example handoffs and rejects unknown properties.

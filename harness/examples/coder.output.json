@@ -14,7 +14,7 @@
     "ticket_id": "TICKET-001",
     "criteria_coverage": [{ "criterion": "All approved sections render responsively", "evidence": "Responsive page and build test" }],
     "changes": ["Implemented the portfolio page"],
-    "checks": [{ "name": "production build", "command": "npm run build", "result": "passed" }],
+    "checks": [{ "name": "production build", "command": "pnpm run build", "result": "passed" }],
     "known_limitations": ["Contact links require owner configuration"],
     "scope_change_request": null
   }

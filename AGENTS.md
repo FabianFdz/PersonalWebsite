@@ -11,7 +11,7 @@ This repository contains a personal portfolio and a resumable, human-in-the-loop
 5. `harness/memory/<agent>.json` — generalized rules learned by each role.
 6. `harness/schemas/` — mandatory machine contracts.
 
-Never advance a phase from an output that has not passed `npm run harness:validate`. Never edit another role's output to make it pass; return a structured failure to that role.
+Never advance a phase from an output that has not passed `pnpm run harness:validate`. Never edit another role's output to make it pass; return a structured failure to that role.
 
 ## Roles
 
@@ -32,7 +32,7 @@ Codex launch prompts live in `harness/adapters/codex/`. Claude Code subagents li
 3. Validate every JSON input before using it.
 4. Perform only the active role's responsibility.
 5. Write the human artifact (Markdown/code/docs) and a JSON handoff under `harness/runs/<run_id>/<round_id>/<ticket_id>/`.
-6. Validate the handoff with `npm run harness:validate -- <handoff.json>`.
+6. Validate the handoff with `pnpm run harness:validate -- <handoff.json>`.
 7. Stop at a pending human approval. A human must run the explicit approval command.
 8. Add a memory rule only when it is reusable, actionable, and not already covered. Memory is not a chronological log.
 

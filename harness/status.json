@@ -9,7 +9,7 @@
   "current_ticket": null,
   "rounds": [],
   "checkpoint": {
-    "resume_from": "Initialize a run with: npm run harness -- init EPIC-004",
+    "resume_from": "Initialize a run with: pnpm run harness -- init EPIC-004",
     "last_validated_artifact": null,
     "last_completed_phase": null,
     "saved_at": "2026-08-19T00:00:00.000Z"

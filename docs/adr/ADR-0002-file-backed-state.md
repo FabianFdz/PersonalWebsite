@@ -22,4 +22,4 @@ The repository is self-contained and easy to inspect. Concurrent writers are out
 
 ## Verification
 
-A new process can run `npm run harness -- resume` and receive the next safe action without previous conversation context.
+A new process can run `pnpm run harness -- resume` and receive the next safe action without previous conversation context.

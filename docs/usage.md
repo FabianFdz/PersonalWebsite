@@ -3,8 +3,8 @@
 ## 1. Validate the repository
 
 ```bash
-npm install
-npm run harness:validate
+pnpm install
+pnpm run harness:validate
 ```
 
 Validation compiles every schema, validates `status.json`, validates all five memory files and example handoffs, checks Planner dependency semantics, prevents Reviewer approval when criteria or blocking findings remain unresolved, and rejects any agent that tries to decide a human gate.
@@ -14,19 +14,19 @@ It also validates the ordered epic lifecycle in `harness/epic-status.json`, incl
 ## 2. Start or resume the next sprint
 
 ```bash
-npm run harness -- sprint
-npm run harness -- next
+pnpm run harness -- sprint
+pnpm run harness -- next
 ```
 
 The command selects the first `pending` epic in catalog order, provided its hard dependencies are complete. If a run already exists, it resumes from the durable checkpoint. Only one epic and one round are active at a time.
 
-For an intentional manual selection, `npm run harness -- init EPIC-004` remains available but requires that epic to be pending, dependency-ready, and no other epic to be active.
+For an intentional manual selection, `pnpm run harness -- init EPIC-004` remains available but requires that epic to be pending, dependency-ready, and no other epic to be active.
 
 ## 3. Run the requested role
 
 ### Codex
 
-Open the repository in Codex and ask it to follow `AGENTS.md` plus the prompt named by `npm run harness -- next`. The role launch prompts are under `harness/adapters/codex/`.
+Open the repository in Codex and ask it to follow `AGENTS.md` plus the prompt named by `pnpm run harness -- next`. The role launch prompts are under `harness/adapters/codex/`.
 
 Example request:
 
@@ -36,7 +36,7 @@ Follow AGENTS.md. Act as Planner using harness/adapters/codex/planner.md for the
 
 ### Claude Code
 
-Open the repository in Claude Code. `CLAUDE.md` routes the session to the five subagents under `.claude/agents/`. Ask Claude Code to use the role printed by `npm run harness -- next`.
+Open the repository in Claude Code. `CLAUDE.md` routes the session to the five subagents under `.claude/agents/`. Ask Claude Code to use the role printed by `pnpm run harness -- next`.
 
 Example request:
 
@@ -49,8 +49,8 @@ Use the planner subagent for the active run. Validate its output and stop at the
 Agents save artifacts under the active run/round/ticket directory. The Planner uses the round directory because no ticket is active yet.
 
 ```bash
-npm run harness:validate -- harness/runs/RUN-.../ROUND-001/planner.output.json
-npm run harness -- ingest harness/runs/RUN-.../ROUND-001/planner.output.json
+pnpm run harness:validate -- harness/runs/RUN-.../ROUND-001/planner.output.json
+pnpm run harness -- ingest harness/runs/RUN-.../ROUND-001/planner.output.json
 ```
 
 `ingest` validates the envelope and role payload again before changing state. It rejects a role that does not match the active phase or an output for another run.
@@ -62,19 +62,19 @@ After Planner, Architect, and Documentation Specialist outputs, the state change
 Inspect it:
 
 ```bash
-npm run harness -- status
+pnpm run harness -- status
 ```
 
 Approve:
 
 ```bash
-npm run harness -- approve <APPROVAL-ID> "<human name>" "<decision note>"
+pnpm run harness -- approve <APPROVAL-ID> "<human name>" "<decision note>"
 ```
 
 Reject:
 
 ```bash
-npm run harness -- reject <APPROVAL-ID> "<human name>" "<required change>"
+pnpm run harness -- reject <APPROVAL-ID> "<human name>" "<required change>"
 ```
 
 Agents must never execute these two commands on a human's behalf.
@@ -82,8 +82,8 @@ Agents must never execute these two commands on a human's behalf.
 ## 6. Resume after interruption
 
 ```bash
-npm run harness:validate
-npm run harness -- resume
+pnpm run harness:validate
+pnpm run harness -- resume
 ```
 
 The command prints the safe next action from the last validated checkpoint. A pending human decision always wins over provider chat history.
