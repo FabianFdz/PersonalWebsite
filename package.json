@@ -16,6 +16,7 @@
     "harness:validate": "node scripts/validate-harness.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "react": "19.2.8",
