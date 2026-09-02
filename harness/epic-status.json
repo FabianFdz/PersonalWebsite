@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "next_epic_number": 7,
+  "next_epic_number": 8,
   "epics": [
     {
       "id": "EPIC-004",
@@ -16,6 +16,16 @@
       "id": "EPIC-006",
       "title": "External PoC Labs directory",
       "file": "docs/epics/EPIC-006-poc-labs-platform.md",
+      "status": "pending",
+      "dependencies": [],
+      "run_id": null,
+      "started_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "EPIC-007",
+      "title": "Costa Rica take-home salary calculator",
+      "file": "docs/epics/EPIC-007-salary-calculator.md",
       "status": "pending",
       "dependencies": [],
       "run_id": null,

@@ -8,3 +8,4 @@ An epic remains `draft` while material product questions are open. It becomes `p
 | --- | --- | --- |
 | [EPIC-004](EPIC-004-agentic-control-plane.md) | Deterministic resumable control plane | — |
 | [EPIC-006](EPIC-006-poc-labs-platform.md) | External PoC Labs directory | — |
+| [EPIC-007](EPIC-007-salary-calculator.md) | Costa Rica net pay after statutory deductions and overtime | — |
