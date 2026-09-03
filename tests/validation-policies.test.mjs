@@ -6,9 +6,9 @@ import test from "node:test";
 import { validateAgentOutput } from "../scripts/validation/agent-output-validator.mjs";
 import { createSchemaRegistry } from "../scripts/validation/schema-registry.mjs";
 
-test("agents cannot grant their own human approval", async () => {
+test("removed approval payloads are rejected by role contracts", async () => {
   const directory = await mkdtemp(path.join(tmpdir(), "personalweb-validation-"));
-  const fixturePath = path.join(directory, "planner-approved.output.json");
+  const fixturePath = path.join(directory, "planner-with-approval.output.json");
 
   try {
     const fixture = JSON.parse(
@@ -17,22 +17,39 @@ test("agents cannot grant their own human approval", async () => {
         "utf8",
       ),
     );
-    fixture.payload.approval_request.status = "approved";
-    fixture.payload.approval_request.decided_at = timestampForDecision();
-    fixture.payload.approval_request.decided_by = "planner";
-    fixture.payload.approval_request.decision_note = "Self-approved";
+    fixture.payload.approval_request = { status: "pending" };
     await writeFile(fixturePath, JSON.stringify(fixture));
 
     const registry = await createSchemaRegistry();
     await assert.rejects(
       validateAgentOutput(fixturePath, registry),
-      /agents may request approvals but cannot decide them/,
+      /must NOT have additional properties/,
     );
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
 });
 
-function timestampForDecision() {
-  return "2026-08-19T00:01:00.000Z";
-}
+test("needs_human is no longer a valid handoff status", async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), "personalweb-validation-"));
+  const fixturePath = path.join(directory, "planner-needs-human.output.json");
+
+  try {
+    const fixture = JSON.parse(
+      await readFile(
+        new URL("../harness/examples/planner.output.json", import.meta.url),
+        "utf8",
+      ),
+    );
+    fixture.status = "needs_human";
+    await writeFile(fixturePath, JSON.stringify(fixture));
+
+    const registry = await createSchemaRegistry();
+    await assert.rejects(
+      validateAgentOutput(fixturePath, registry),
+      /must be equal to one of the allowed values/,
+    );
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});

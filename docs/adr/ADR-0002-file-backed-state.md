@@ -9,7 +9,7 @@ Runs may be interrupted between roles or while awaiting human input. Chat histor
 
 ## Decision
 
-Persist one validated `harness/status.json` with granular stages per ticket, explicit approvals, retry/error records, and a resume checkpoint. Run outputs remain immutable evidence under `harness/runs/`.
+Persist one validated `harness/status.json` with granular stages per ticket, retry/error records, and a resume checkpoint. Successful validated handoffs advance directly to the next role. Run outputs remain immutable evidence under `harness/runs/`.
 
 ## Alternatives
 
@@ -22,4 +22,4 @@ The repository is self-contained and easy to inspect. Concurrent writers are out
 
 ## Verification
 
-A new process can run `pnpm run harness -- resume` and receive the next safe action without previous conversation context.
+A new process can run `pnpm run harness resume` and receive the next safe action without previous conversation context.

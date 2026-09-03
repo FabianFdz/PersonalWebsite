@@ -6,13 +6,6 @@ export const roleByPhase = {
   documentation: "documentation-specialist",
 };
 
-const gateLabels = {
-  plan_approval: "PLAN",
-  architecture_approval: "ARCHITECTURE",
-  scope_change_approval: "SCOPE",
-  merge_approval: "MERGE",
-};
-
 const emptyStage = () => ({ status: "not_started", attempts: 0, artifact: null });
 
 export function createInitialStatus({ projectId, epicId, runId, timestamp }) {
@@ -32,7 +25,6 @@ export function createInitialStatus({ projectId, epicId, runId, timestamp }) {
       last_completed_phase: null,
       saved_at: timestamp,
     },
-    approvals: [],
     errors: [],
     updated_at: timestamp,
   };
@@ -65,30 +57,6 @@ export function markStage(status, stageName, stageStatus, artifact) {
     attempts: stage.attempts + 1,
     artifact,
   });
-}
-
-function approvalId(status, gate) {
-  const subject = status.current_ticket ?? status.epic_id;
-  const sequence = String(status.approvals.length + 1).padStart(3, "0");
-  return `APPROVAL-${gateLabels[gate]}-${subject}-${sequence}`;
-}
-
-export function requestApproval(status, gate, question, timestamp) {
-  const approval = {
-    id: approvalId(status, gate),
-    gate,
-    status: "pending",
-    question,
-    requested_at: timestamp,
-    decided_at: null,
-    decided_by: null,
-    decision_note: null,
-  };
-
-  status.approvals.push(approval);
-  status.phase = gate;
-  status.state = "waiting_for_human";
-  status.checkpoint.resume_from = `Human must approve or reject ${approval.id}`;
 }
 
 export function createPlannedTicket(ticket, artifact) {

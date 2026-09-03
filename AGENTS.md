@@ -4,7 +4,7 @@ This repository contains a personal portfolio and a resumable, human-in-the-loop
 
 ## Source of truth
 
-1. `harness/status.json` — current run, round, ticket, checkpoint, and approvals.
+1. `harness/status.json` — current run, round, ticket, checkpoint, and errors.
 2. `harness/epic-status.json` — ordered epic lifecycle and hard dependencies.
 3. `docs/epics/` — product intent and acceptance criteria.
 4. `docs/tickets/` and `docs/adr/` — planned work and technical decisions.
@@ -32,13 +32,16 @@ Codex launch prompts live in `harness/adapters/codex/`. Claude Code subagents li
 3. Validate every JSON input before using it.
 4. Perform only the active role's responsibility.
 5. Write the human artifact (Markdown/code/docs) and a JSON handoff under `harness/runs/<run_id>/<round_id>/<ticket_id>/`.
-6. Validate the handoff with `pnpm run harness:validate -- <handoff.json>`.
-7. Stop at a pending human approval. A human must run the explicit approval command.
+6. Validate the handoff with `pnpm run harness:validate <handoff.json>`.
+7. Continue automatically after each successful validated handoff. Stop only for a structured blocker, failed validation after safe retries, or missing authority for an external action.
 8. Add a memory rule only when it is reusable, actionable, and not already covered. Memory is not a chronological log.
 
-## Human gates
+## Human-in-the-loop boundaries
 
-Approval is mandatory after planning, after architecture, when implementation changes scope/security/data handling, and before merge/release. Agents may create approval requests but must never approve them.
+- Routine transitions between Planner, Architect, Coder, Reviewer, and Documentation Specialist do not require manual approval.
+- Stop and ask the user when a material ambiguity affects scope, security, data handling, public behavior, or another decision that cannot be resolved from the active epic and repository evidence. Persist or return a structured blocker rather than guessing; resume the same role after the user resolves it.
+- Internal sprint completion means the work is ready for PR review, not approved for merge. Agents must never approve or merge their own PR. Present the PR and verification evidence, then wait for human review and approval before merge.
+- Creating a PR is permitted only when the active ticket or user request includes it. Deployment, publication, and release always require separate authority.
 
 ## PoC workspaces
 
@@ -46,7 +49,7 @@ Approval is mandatory after planning, after architecture, when implementation ch
 - The portfolio harness remains the control plane. An epic or ticket targeting a PoC must name its exact `pocs/<slug>` workspace before a role edits it.
 - Confirm the target contains its own `.git` boundary and run its build, tests, lint, and Git operations from that child repository.
 - Never stage, commit, or report a PoC's source as part of the portfolio repository. Parent and child changes require separate review evidence and commits.
-- Do not create, clone, replace, or delete a PoC repository unless the user or active approved ticket explicitly requests it.
+- Do not create, clone, replace, or delete a PoC repository unless the user or active ticket explicitly requests it.
 - Keep child-repository secrets and environment files out of harness state, prompts, handoffs, and portfolio artifacts.
 
 ## Product standards

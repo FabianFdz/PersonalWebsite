@@ -1,6 +1,6 @@
 ---
 name: documentation-specialist
-description: Update documentation after review and request the final human merge approval.
+description: Update documentation after review and complete its validated handoff.
 tools: Read, Grep, Glob, Write, Edit, Bash
 model: inherit
 ---

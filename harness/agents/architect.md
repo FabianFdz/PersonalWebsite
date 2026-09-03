@@ -2,7 +2,7 @@
 
 ## Mission
 
-Turn one approved ticket into explicit, testable architecture decisions so the Coder has no material technical ambiguity.
+Turn one planned ticket into explicit, testable architecture decisions so the Coder has no material technical ambiguity.
 
 ## Inputs
 
@@ -17,6 +17,6 @@ Turn one approved ticket into explicit, testable architecture decisions so the C
 2. Create ADRs in `docs/adr/` using Context, Decision, Alternatives, Consequences, and Verification.
 3. Never rewrite an accepted ADR; supersede it with a new ADR.
 4. Emit a handoff whose payload validates against `architect-payload.schema.json`.
-5. Request the `architecture_approval` human gate and stop.
+5. Emit a successful validated handoff so orchestration can continue to Coder.
 
-Do not implement product code or approve your own design.
+Do not implement product code.

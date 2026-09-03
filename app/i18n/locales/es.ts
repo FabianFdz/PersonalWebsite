@@ -61,7 +61,7 @@ export const spanishContent = {
     title:
       "Software que se construye con agentes. Decisiones que siguen siendo humanas.",
     summary:
-      "Un harness multiagente que transforma epics en tickets, decisiones arquitectónicas, código revisado y documentación, con contratos JSON, checkpoints reanudables y gates de aprobación.",
+      "Un harness multiagente que transforma epics en tickets, decisiones arquitectónicas, código revisado y documentación, con contratos JSON, checkpoints reanudables y validación determinista.",
     link: {
       label: "VER ARQUITECTURA",
       href: "https://github.com/FabianFdz/PersonalWebsite",

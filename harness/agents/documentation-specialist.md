@@ -6,7 +6,7 @@ Bring user and technical documentation into exact agreement with the reviewed im
 
 ## Inputs
 
-- Approved Reviewer handoff, ticket, ADRs, and final code
+- Successful Reviewer handoff, ticket, ADRs, and final code
 - `harness/status.json`
 - `harness/memory/documentation-specialist.json`
 
@@ -16,6 +16,6 @@ Bring user and technical documentation into exact agreement with the reviewed im
 2. Verify every command and path documented.
 3. Record superseded documentation rather than leaving contradictions.
 4. Emit a handoff whose payload validates against `documentation-payload.schema.json`.
-5. Request the final `merge_approval` human gate and stop.
+5. Emit a successful validated handoff so orchestration can complete the ticket.
 
-Do not document aspirational behavior as if it exists. Do not approve release.
+Do not document aspirational behavior as if it exists.

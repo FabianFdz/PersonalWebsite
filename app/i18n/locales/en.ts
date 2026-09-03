@@ -60,7 +60,7 @@ export const englishContent = {
     kicker: "HUMAN-IN-THE-LOOP · AGENTIC AI",
     title: "Software built with agents. Decisions that remain human.",
     summary:
-      "A multi-agent harness that turns epics into tickets, architecture decisions, reviewed code, and documentation through JSON contracts, resumable checkpoints, and approval gates.",
+      "A multi-agent harness that turns epics into tickets, architecture decisions, reviewed code, and documentation through JSON contracts, resumable checkpoints, and deterministic validation.",
     link: {
       label: "VIEW ARCHITECTURE",
       href: "https://github.com/FabianFdz/PersonalWebsite",

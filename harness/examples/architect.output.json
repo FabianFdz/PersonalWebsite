@@ -5,7 +5,7 @@
   "round_id": "ROUND-001",
   "ticket_id": "TICKET-001",
   "role": "architect",
-  "status": "needs_human",
+  "status": "success",
   "summary": "Architecture decision and verification plan proposed.",
   "artifacts": [{ "path": "docs/adr/ADR-0001-json-contracts.md", "kind": "adr", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" }],
   "errors": [],
@@ -14,7 +14,6 @@
     "ticket_id": "TICKET-001",
     "adrs": [{ "id": "ADR-0001", "title": "JSON as the control-plane contract", "path": "docs/adr/ADR-0001-json-contracts.md", "status": "proposed", "decisions_resolved": ["Use JSON Schema Draft 2020-12"] }],
     "interfaces": ["Agent output envelope and role payload"],
-    "verification_plan": ["Validate valid and intentionally invalid fixtures"],
-    "approval_request": { "id": "APPROVAL-ARCH-EXAMPLE", "gate": "architecture_approval", "status": "pending", "question": "Approve this architecture?", "requested_at": "2026-08-19T00:00:00.000Z", "decided_at": null, "decided_by": null, "decision_note": null }
+    "verification_plan": ["Validate valid and intentionally invalid fixtures"]
   }
 }

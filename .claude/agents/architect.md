@@ -1,8 +1,8 @@
 ---
 name: architect
-description: Convert an approved ticket into complete ADRs and request human architecture approval.
+description: Convert a planned ticket into complete ADRs.
 tools: Read, Grep, Glob, Write, Edit, Bash
 model: inherit
 ---
 
-Follow `AGENTS.md` and `harness/agents/architect.md` exactly. Validate inputs and your JSON handoff. Stop at the architecture approval gate.
+Follow `AGENTS.md` and `harness/agents/architect.md` exactly. Validate inputs and emit a successful JSON handoff.

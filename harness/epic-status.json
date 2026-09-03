@@ -6,10 +6,10 @@
       "id": "EPIC-004",
       "title": "Deterministic, resumable agentic control plane",
       "file": "docs/epics/EPIC-004-agentic-control-plane.md",
-      "status": "pending",
+      "status": "in_progress",
       "dependencies": [],
-      "run_id": null,
-      "started_at": null,
+      "run_id": "RUN-20260902231838",
+      "started_at": "2026-09-02T23:18:38.406Z",
       "completed_at": null
     },
     {

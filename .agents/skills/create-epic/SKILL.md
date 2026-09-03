@@ -1,6 +1,6 @@
 ---
 name: create-epic
-description: Challenge, refine, create, or update concise sprint-ready epics for this repository, including material edge cases and dependencies on the existing epic catalog. Use when shaping product intent before sprint planning; do not decompose an approved epic into tickets or make architecture decisions.
+description: Challenge, refine, create, or update concise sprint-ready epics for this repository, including material edge cases and dependencies on the existing epic catalog. Use when shaping product intent before sprint planning; do not decompose a ready epic into tickets or make architecture decisions.
 ---
 
 # Create Epic
@@ -27,7 +27,7 @@ Act as a constructive skeptic. Test the proposal against:
 
 - happy path, empty/first-use state, partial data, invalid input, duplicate or repeated actions;
 - interruption, retry, idempotency, and recovery when the epic changes durable state;
-- permissions, privacy, secrets, destructive actions, and human approvals;
+- permissions, privacy, secrets, destructive actions, and authority boundaries;
 - accessibility, responsive behavior, reduced motion, performance, and compatibility when applicable;
 - observable failure behavior and what must remain unchanged;
 - scope creep, bundled outcomes, contradictions, and acceptance criteria that merely restate implementation tasks.

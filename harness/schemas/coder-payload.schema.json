@@ -24,7 +24,6 @@
         "properties": { "name": { "type": "string" }, "command": { "type": "string" }, "result": { "enum": ["passed", "failed", "not_run"] } }
       }
     },
-    "known_limitations": { "type": "array", "items": { "type": "string", "minLength": 3 } },
-    "scope_change_request": { "anyOf": [{ "$ref": "https://portfolio.local/schemas/approval.schema.json" }, { "type": "null" }] }
+    "known_limitations": { "type": "array", "items": { "type": "string", "minLength": 3 } }
   }
 }

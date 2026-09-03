@@ -5,7 +5,7 @@
   "round_id": "ROUND-001",
   "ticket_id": null,
   "role": "planner",
-  "status": "needs_human",
+  "status": "success",
   "summary": "Epic decomposed into two dependency-ordered tickets.",
   "artifacts": [{ "path": "docs/tickets/EPIC-004/TICKET-001.md", "kind": "ticket", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" }],
   "errors": [],
@@ -14,10 +14,9 @@
     "epic_id": "EPIC-004",
     "tickets": [
       { "id": "TICKET-001", "title": "Create content model", "description": "Create a verified and editable portfolio content source.", "dependencies": [], "acceptance_criteria": ["All claims have a traceable source"], "complexity": "small" },
-      { "id": "TICKET-002", "title": "Render portfolio content", "description": "Render the approved content in the portfolio sections.", "dependencies": ["TICKET-001"], "acceptance_criteria": ["All approved sections render responsively"], "complexity": "medium" }
+      { "id": "TICKET-002", "title": "Render portfolio content", "description": "Render the verified content in the portfolio sections.", "dependencies": ["TICKET-001"], "acceptance_criteria": ["All verified sections render responsively"], "complexity": "medium" }
     ],
     "dependency_order": ["TICKET-001", "TICKET-002"],
-    "risks": ["Contact details require human confirmation"],
-    "approval_request": { "id": "APPROVAL-PLAN-EXAMPLE", "gate": "plan_approval", "status": "pending", "question": "Approve this ticket plan?", "requested_at": "2026-08-19T00:00:00.000Z", "decided_at": null, "decided_by": null, "decision_note": null }
+    "risks": ["Contact details require verified source data"]
   }
 }

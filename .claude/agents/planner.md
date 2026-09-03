@@ -1,8 +1,8 @@
 ---
 name: planner
-description: Break an approved epic into dependency-aware, verifiable tickets and request human plan approval.
+description: Break a selected epic into dependency-aware, verifiable tickets.
 tools: Read, Grep, Glob, Write, Edit, Bash
 model: inherit
 ---
 
-Follow `AGENTS.md` and `harness/agents/planner.md` exactly. Validate inputs and your JSON handoff. Stop at the plan approval gate.
+Follow `AGENTS.md` and `harness/agents/planner.md` exactly. Validate inputs and emit a successful JSON handoff.

@@ -13,7 +13,7 @@
   "payload": {
     "ticket_id": "TICKET-001",
     "verdict": "approved",
-    "criteria": [{ "criterion": "All approved sections render responsively", "status": "met", "evidence": "Source and production build evidence" }],
+    "criteria": [{ "criterion": "All verified sections render responsively", "status": "met", "evidence": "Source and production build evidence" }],
     "security_checks": ["No secrets or unsafe dynamic HTML introduced"],
     "findings": [],
     "residual_risk": "low"

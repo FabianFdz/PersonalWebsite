@@ -7,41 +7,41 @@ pnpm install
 pnpm run harness:validate
 ```
 
-Validation compiles every schema, validates `status.json`, validates all five memory files and example handoffs, checks Planner dependency semantics, prevents Reviewer approval when criteria or blocking findings remain unresolved, and rejects any agent that tries to decide a human gate.
+Validation compiles every schema, validates `status.json`, validates all five memory files and example handoffs, checks Planner dependency semantics, and prevents a successful Reviewer verdict when criteria or blocking findings remain unresolved.
 
 It also validates the ordered epic lifecycle in `harness/epic-status.json`, including document registration, dependency references, cycles, and the single-active-epic invariant.
 
 ## 2. Start or resume the next sprint
 
 ```bash
-pnpm run harness -- sprint
-pnpm run harness -- next
+pnpm run harness sprint
+pnpm run harness next
 ```
 
 The command selects the first `pending` epic in catalog order, provided its hard dependencies are complete. If a run already exists, it resumes from the durable checkpoint. Only one epic and one round are active at a time.
 
-For an intentional manual selection, `pnpm run harness -- init EPIC-004` remains available but requires that epic to be pending, dependency-ready, and no other epic to be active.
+For an intentional manual selection, `pnpm run harness init EPIC-004` remains available but requires that epic to be pending, dependency-ready, and no other epic to be active.
 
 ## 3. Run the requested role
 
 ### Codex
 
-Open the repository in Codex and ask it to follow `AGENTS.md` plus the prompt named by `pnpm run harness -- next`. The role launch prompts are under `harness/adapters/codex/`.
+Open the repository in Codex and ask it to follow `AGENTS.md` plus the prompt named by `pnpm run harness next`. The role launch prompts are under `harness/adapters/codex/`.
 
 Example request:
 
 ```text
-Follow AGENTS.md. Act as Planner using harness/adapters/codex/planner.md for the active run. Stop at the human gate.
+Follow AGENTS.md. Act as Planner using harness/adapters/codex/planner.md for the active run and emit a successful validated handoff.
 ```
 
 ### Claude Code
 
-Open the repository in Claude Code. `CLAUDE.md` routes the session to the five subagents under `.claude/agents/`. Ask Claude Code to use the role printed by `pnpm run harness -- next`.
+Open the repository in Claude Code. `CLAUDE.md` routes the session to the five subagents under `.claude/agents/`. Ask Claude Code to use the role printed by `pnpm run harness next`.
 
 Example request:
 
 ```text
-Use the planner subagent for the active run. Validate its output and stop at the human gate.
+Use the planner subagent for the active run and validate its successful output.
 ```
 
 ## 4. Validate and ingest a handoff
@@ -49,50 +49,37 @@ Use the planner subagent for the active run. Validate its output and stop at the
 Agents save artifacts under the active run/round/ticket directory. The Planner uses the round directory because no ticket is active yet.
 
 ```bash
-pnpm run harness:validate -- harness/runs/RUN-.../ROUND-001/planner.output.json
-pnpm run harness -- ingest harness/runs/RUN-.../ROUND-001/planner.output.json
+pnpm run harness:validate harness/runs/RUN-.../ROUND-001/planner.output.json
+pnpm run harness ingest harness/runs/RUN-.../ROUND-001/planner.output.json
 ```
 
 `ingest` validates the envelope and role payload again before changing state. It rejects a role that does not match the active phase or an output for another run.
 
-## 5. Human approval
+## 5. Automatic progression and human boundaries
 
-After Planner, Architect, and Documentation Specialist outputs, the state changes to `waiting_for_human` and contains exactly one pending approval.
+Every successful handoff advances directly to the next role after schema, semantic, and artifact validation. The sprint skill keeps dispatching roles sequentially until the run completes.
 
-Inspect it:
+A blocked or failed role does not advance state. A material ambiguity becomes a structured blocker and the orchestrator asks the smallest concrete question needed. After the user answers, the same role retries from persisted state with that clarification.
 
-```bash
-pnpm run harness -- status
-```
+Routine role transitions have no manual approval. Human involvement remains mandatory at two boundaries:
 
-Approve:
-
-```bash
-pnpm run harness -- approve <APPROVAL-ID> "<human name>" "<decision note>"
-```
-
-Reject:
-
-```bash
-pnpm run harness -- reject <APPROVAL-ID> "<human name>" "<required change>"
-```
-
-Agents must never execute these two commands on a human's behalf.
+- Ambiguities affecting scope, security, data handling, public behavior, or authority must be resolved by the user rather than inferred by an agent.
+- A completed internal sprint is only PR-ready. An agent may create a PR when authorized, but it must present the PR and checks for human review and must never approve or merge its own PR.
 
 ## 6. Resume after interruption
 
 ```bash
 pnpm run harness:validate
-pnpm run harness -- resume
+pnpm run harness resume
 ```
 
-The command prints the safe next action from the last validated checkpoint. A pending human decision always wins over provider chat history.
+The command prints the safe next action from the last validated checkpoint. Persisted repository state always wins over provider chat history.
 
-After the final merge approval makes the run complete, invoke the sprint skill once more. It records the epic as `completed` and stops; a later invocation starts the next pending epic.
+After the Documentation Specialist's successful handoff makes the run complete, invoke the sprint skill once more. It records the epic as `completed` and stops for any applicable human PR review; a later invocation starts the next pending epic.
 
 ## 7. Review loop
 
-The Reviewer maps every acceptance criterion to evidence and checks security. `changes_requested` returns the same ticket to Coder. Only `approved` advances to Documentation Specialist. A merge approval either selects the next dependency-ready ticket or completes the round.
+The Reviewer maps every acceptance criterion to evidence and checks security. `changes_requested` returns the same ticket to Coder. Only the Reviewer's successful `approved` verdict advances to Documentation Specialist, whose successful handoff selects the next dependency-ready ticket or completes the round.
 
 ## 8. Teach an agent a reusable lesson
 
@@ -117,7 +104,7 @@ Keep each PoC as a separate repository under `pocs/<slug>/`. The parent portfoli
 
 Before a harness role works on a PoC:
 
-1. The approved epic or ticket must identify the exact `pocs/<slug>` target.
+1. The active epic or ticket must identify the exact `pocs/<slug>` target.
 2. Verify that the target exists and contains its own `.git` boundary; a missing checkout blocks the role instead of authorizing it to invent or replace the repository.
 3. Run the harness and persist handoffs from the portfolio root.
 4. Run implementation checks and Git operations inside the child repository, for example `git -C pocs/<slug> status`.
@@ -131,4 +118,4 @@ Ignored local workspaces are not automatically included in portfolio validation,
 - Never reuse a handoff from another run or round.
 - Keep failed attempts as evidence and increment attempts in state.
 - If `status.json` is invalid, restore the last committed valid copy before resuming.
-- If an accepted ADR changes, create a superseding ADR and request architecture approval again.
+- If an accepted ADR changes, create a superseding ADR and re-run architecture validation before implementation.

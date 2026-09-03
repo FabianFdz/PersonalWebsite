@@ -1,20 +1,232 @@
 {
   "schema_version": "1.0",
   "project_id": "fabian-portfolio",
-  "run_id": null,
-  "epic_id": null,
-  "state": "not_started",
-  "phase": "idle",
-  "current_round": null,
-  "current_ticket": null,
-  "rounds": [],
+  "run_id": "RUN-20260902231838",
+  "epic_id": "EPIC-004",
+  "state": "running",
+  "phase": "architecture",
+  "current_round": "ROUND-001",
+  "current_ticket": "TICKET-001",
+  "rounds": [
+    {
+      "round_id": "ROUND-001",
+      "status": "in_progress",
+      "tickets": [
+        {
+          "ticket_id": "TICKET-001",
+          "dependencies": [],
+          "planning": {
+            "status": "passed",
+            "attempts": 1,
+            "artifact": "harness/runs/RUN-20260902231838/ROUND-001/planner.output.json"
+          },
+          "architecture": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "implementation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "review": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "tests": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "documentation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "merge": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          }
+        },
+        {
+          "ticket_id": "TICKET-002",
+          "dependencies": [
+            "TICKET-001"
+          ],
+          "planning": {
+            "status": "passed",
+            "attempts": 1,
+            "artifact": "harness/runs/RUN-20260902231838/ROUND-001/planner.output.json"
+          },
+          "architecture": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "implementation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "review": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "tests": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "documentation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "merge": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          }
+        },
+        {
+          "ticket_id": "TICKET-003",
+          "dependencies": [
+            "TICKET-002"
+          ],
+          "planning": {
+            "status": "passed",
+            "attempts": 1,
+            "artifact": "harness/runs/RUN-20260902231838/ROUND-001/planner.output.json"
+          },
+          "architecture": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "implementation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "review": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "tests": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "documentation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "merge": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          }
+        },
+        {
+          "ticket_id": "TICKET-004",
+          "dependencies": [
+            "TICKET-003"
+          ],
+          "planning": {
+            "status": "passed",
+            "attempts": 1,
+            "artifact": "harness/runs/RUN-20260902231838/ROUND-001/planner.output.json"
+          },
+          "architecture": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "implementation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "review": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "tests": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "documentation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "merge": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          }
+        },
+        {
+          "ticket_id": "TICKET-005",
+          "dependencies": [
+            "TICKET-001",
+            "TICKET-002",
+            "TICKET-003",
+            "TICKET-004"
+          ],
+          "planning": {
+            "status": "passed",
+            "attempts": 1,
+            "artifact": "harness/runs/RUN-20260902231838/ROUND-001/planner.output.json"
+          },
+          "architecture": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "implementation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "review": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "tests": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "documentation": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          },
+          "merge": {
+            "status": "not_started",
+            "attempts": 0,
+            "artifact": null
+          }
+        }
+      ]
+    }
+  ],
   "checkpoint": {
-    "resume_from": "Initialize a run with: pnpm run harness -- init EPIC-004",
-    "last_validated_artifact": null,
-    "last_completed_phase": null,
-    "saved_at": "2026-08-19T00:00:00.000Z"
+    "resume_from": "Run Architect for TICKET-001",
+    "last_validated_artifact": "harness/runs/RUN-20260902231838/ROUND-001/planner.output.json",
+    "last_completed_phase": "planning",
+    "saved_at": "2026-09-02T23:51:46.000Z"
   },
-  "approvals": [],
   "errors": [],
-  "updated_at": "2026-08-19T00:00:00.000Z"
+  "updated_at": "2026-09-02T23:51:46.000Z"
 }

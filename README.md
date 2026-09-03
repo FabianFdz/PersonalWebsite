@@ -1,6 +1,6 @@
 # Fabián Fernández — Portfolio + Agentic Harness
 
-A production-ready personal portfolio and a provider-neutral, human-in-the-loop harness for developing it with Claude Code or Codex.
+A production-ready personal portfolio and a provider-neutral, resumable, human-in-the-loop harness for developing it with Claude Code or Codex.
 
 ## Included
 
@@ -9,7 +9,7 @@ A production-ready personal portfolio and a provider-neutral, human-in-the-loop 
 - CV-grounded positioning around Senior Software Engineering, GenAI, React/Next.js, TypeScript, cloud, and agentic systems.
 - Five canonical roles: Planner, Architect, Coder, Reviewer, and Documentation Specialist.
 - Claude Code subagents in `.claude/agents/` and Codex launch prompts in `harness/adapters/codex/`.
-- Strict JSON Schemas, semantic validation, resumable `status.json`, human approval gates, and generalized per-agent memory.
+- Strict JSON Schemas, semantic validation, resumable `status.json`, independent review, focused human ambiguity handling, and human PR approval.
 - Product epics, ADRs, example handoffs, tests, and an orchestration CLI.
 
 ## Quick start
@@ -48,22 +48,18 @@ Nitro generates Vercel's deployment artifact under `.vercel/output/`. The entire
 
 ```bash
 pnpm run harness:validate
-pnpm run harness -- sprint
-pnpm run harness -- next
+pnpm run harness sprint
+pnpm run harness next
 ```
 
 Run the named role in Claude Code or Codex. Validate and ingest its handoff:
 
 ```bash
-pnpm run harness -- ingest harness/runs/RUN-.../ROUND-001/planner.output.json
-pnpm run harness -- status
+pnpm run harness ingest harness/runs/RUN-.../ROUND-001/planner.output.json
+pnpm run harness status
 ```
 
-Only a human approves a pending gate:
-
-```bash
-pnpm run harness -- approve <APPROVAL-ID> "Fabián Fernández" "Scope approved"
-```
+The sprint skill continues automatically after every successful validated handoff. It pauses only for material ambiguities and for human review of a resulting PR; agents never approve or merge their own PRs.
 
 See [docs/usage.md](docs/usage.md) for the complete workflow and [docs/architecture/harness.md](docs/architecture/harness.md) for architecture.
 
@@ -91,8 +87,8 @@ Run harness commands from the portfolio root. When a ticket targets a PoC, it mu
 | `pnpm test` | Build and run automated checks |
 | `pnpm run lint` | Run source linting |
 | `pnpm run harness:validate` | Validate schemas, state, memories, and examples |
-| `pnpm run harness -- status` | Show the active checkpoint |
-| `pnpm run harness -- resume` | Print the exact safe resume action |
+| `pnpm run harness status` | Show the active checkpoint |
+| `pnpm run harness resume` | Print the exact safe resume action |
 
 ## Project map
 

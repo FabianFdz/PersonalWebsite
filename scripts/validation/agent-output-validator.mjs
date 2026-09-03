@@ -3,12 +3,7 @@ import { readJson } from "../core/json-file.mjs";
 import { projectRoot } from "../core/project-paths.mjs";
 import { rolePayloadSchemaIds, schemaIds } from "./schema-catalog.mjs";
 import { assertSchema } from "./schema-registry.mjs";
-import {
-  assertAgentApprovalPolicy,
-  assertOutputStatusPolicy,
-  assertPlannerPolicy,
-  assertReviewerPolicy,
-} from "./semantic-policies.mjs";
+import { assertPlannerPolicy, assertReviewerPolicy } from "./semantic-policies.mjs";
 
 const semanticPoliciesByRole = {
   planner: assertPlannerPolicy,
@@ -27,8 +22,6 @@ export async function validateAgentOutput(file, registry) {
   }
   assertSchema(registry, payloadSchemaId, output.payload, `${file} payload`);
 
-  assertAgentApprovalPolicy(output.role, output.payload);
-  assertOutputStatusPolicy(output);
   semanticPoliciesByRole[output.role]?.(output.payload);
   return output;
 }

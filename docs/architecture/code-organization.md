@@ -26,7 +26,7 @@ Translation modules do not depend on presentation. Both language catalogs must s
 | --- | --- |
 | Process wiring and CLI argument routing | `scripts/harness.mjs` |
 | Use-case coordination | `scripts/harness/commands.mjs` |
-| Pure workflow transitions and approval policy | `scripts/harness/workflow.mjs` |
+| Pure workflow transitions | `scripts/harness/workflow.mjs` |
 | Validated atomic status persistence | `scripts/harness/status-repository.mjs` |
 | Epic discovery | `scripts/harness/epic-catalog.mjs` |
 | Schema compilation and structural errors | `scripts/validation/schema-registry.mjs` |

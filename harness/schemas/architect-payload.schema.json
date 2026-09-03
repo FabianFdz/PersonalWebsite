@@ -4,7 +4,7 @@
   "title": "Architect payload",
   "type": "object",
   "additionalProperties": false,
-  "required": ["ticket_id", "adrs", "interfaces", "verification_plan", "approval_request"],
+  "required": ["ticket_id", "adrs", "interfaces", "verification_plan"],
   "properties": {
     "ticket_id": { "type": "string", "pattern": "^TICKET-[0-9]{3}$" },
     "adrs": {
@@ -22,7 +22,6 @@
       }
     },
     "interfaces": { "type": "array", "items": { "type": "string", "minLength": 3 } },
-    "verification_plan": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 5 } },
-    "approval_request": { "$ref": "https://portfolio.local/schemas/approval.schema.json" }
+    "verification_plan": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 5 } }
   }
 }

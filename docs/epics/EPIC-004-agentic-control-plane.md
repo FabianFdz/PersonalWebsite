@@ -8,11 +8,11 @@ Complete the control plane's integrity boundary so every ingested handoff proves
 
 ### Done
 
-- Versioned JSON Schemas validate status, approvals, epic lifecycle, agent memory, envelopes, and every role payload with unknown fields rejected.
-- Semantic policies enforce ticket dependency rules, Reviewer evidence, role-specific approval gates, and the rule that agents cannot decide human approvals.
-- `harness/status.json` persists run, round, ticket, phase, attempts, errors, approvals, and the last validated checkpoint through atomic writes.
-- CLI commands cover sprint selection, initialization, validation, ingest, status, next action, approval decisions, and resume.
-- Workflow tests cover human gates, rejected approvals, scope-change escalation, role/ticket mismatches, dependency-aware ticket selection, sprint recovery, and invalid status persistence.
+- Versioned JSON Schemas validate status, epic lifecycle, agent memory, envelopes, and every role payload with unknown fields rejected.
+- Semantic policies enforce ticket dependency rules and Reviewer evidence before automatic progression.
+- `harness/status.json` persists run, round, ticket, phase, attempts, errors, and the last validated checkpoint through atomic writes.
+- CLI commands cover sprint selection, initialization, validation, ingest, status, next action, and resume.
+- Workflow tests cover automatic role transitions, blocked outputs, role/ticket mismatches, dependency-aware ticket selection, sprint recovery, and invalid status persistence.
 - Handoff artifact entries already require a repository path, artifact kind, and a syntactically valid 64-character SHA-256 value.
 
 ### Remaining
@@ -22,7 +22,7 @@ Complete the control plane's integrity boundary so every ingested handoff proves
 - Reject missing, unreadable, non-file, duplicate, self-referential, repository-escaping, and symlink-escaping artifact paths with actionable errors.
 - Anchor the ingested handoff itself with durable integrity evidence so later edits to accepted run evidence are detected during full validation and resume.
 - Preserve every retry as distinct evidence and prevent a later attempt from overwriting or reusing a prior attempt's artifact identity.
-- Keep historical evidence valid when a later approved role legitimately changes a live product file; integrity must describe the accepted version, not assume the working-tree path never changes.
+- Keep historical evidence valid when a later validated role legitimately changes a live product file; integrity must describe the accepted version, not assume the working-tree path never changes.
 - Replace placeholder example checksums with verifiable fixtures, or explicitly separate schema-only examples from live integrity verification.
 
 ## Scope for this sprint
@@ -50,10 +50,10 @@ Complete the control plane's integrity boundary so every ingested handoff proves
 5. `ingest` performs integrity validation again immediately before changing state; a handoff or artifact changed after a prior standalone validation cannot advance the workflow.
 6. Successful ingest stores durable integrity evidence for the handoff and its accepted artifact versions. A later `harness:validate` or resume detects modification or replacement of that accepted evidence.
 7. Each retry produces distinct attempt evidence. Reusing a prior evidence path or overwriting an accepted attempt is rejected, while all earlier attempts remain inspectable.
-8. A later approved role may legitimately change a live product file without invalidating the preserved evidence for the earlier accepted version.
+8. A later validated role may legitimately change a live product file without invalidating the preserved evidence for the earlier accepted version.
 9. Any integrity-tool or comparison failure leaves `harness/status.json` and the epic lifecycle unchanged, reports a deterministic recovery action, and cannot fall back to agent-authored evidence.
 10. Example handoffs either reference real deterministic fixtures with correct hashes or are explicitly validated in a schema-only mode that cannot be mistaken for live ingest evidence.
-11. Automated tests cover repeatability, canonical output, one-byte mutations, the happy path, and every failure boundary above, while all existing workflow, gate, resume, lint, and production-build checks continue to pass.
+11. Automated tests cover repeatability, canonical output, one-byte mutations, the happy path, and every failure boundary above, while all existing workflow, resume, lint, and production-build checks continue to pass.
 
 ## Edge cases and failure boundaries
 
@@ -63,7 +63,7 @@ Complete the control plane's integrity boundary so every ingested handoff proves
 - Repository containment must use resolved filesystem paths, not string-prefix comparison.
 - Validation must not follow a symlink to evidence outside the repository trust boundary.
 - A crash between integrity verification and state persistence must resume without treating partial evidence as accepted.
-- Integrity validation does not authorize an agent to approve a gate, merge, deploy, or modify another role's handoff.
+- Integrity validation does not authorize an agent to deploy, publish, perform external mutations, or modify another role's handoff.
 
 ## Non-goals
 

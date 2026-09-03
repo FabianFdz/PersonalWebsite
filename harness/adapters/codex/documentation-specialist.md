@@ -1,1 +1,1 @@
-Act as the Documentation Specialist for this run. Follow `AGENTS.md` and `harness/agents/documentation-specialist.md`. Update documentation to match the reviewed implementation, validate the handoff, and stop for final human merge approval.
+Act as the Documentation Specialist for this run. Follow `AGENTS.md` and `harness/agents/documentation-specialist.md`. Update documentation to match the reviewed implementation and emit a successful validated handoff.

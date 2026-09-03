@@ -1,6 +1,6 @@
 ---
 name: coder
-description: Implement one approved ticket and produce verified implementation evidence.
+description: Implement one planned ticket and produce verified implementation evidence.
 tools: Read, Grep, Glob, Write, Edit, Bash
 model: inherit
 ---

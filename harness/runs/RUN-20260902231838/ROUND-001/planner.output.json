@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0",
+  "message_id": "MSG-PLAN-RUN-20260902231838-ROUND-001",
+  "run_id": "RUN-20260902231838",
+  "round_id": "ROUND-001",
+  "ticket_id": null,
+  "role": "planner",
+  "status": "needs_human",
+  "summary": "EPIC-004 is decomposed into five dependency-ordered tickets covering deterministic integrity generation, live validation, accepted evidence, retries and recovery, and aligned fixtures and guidance.",
+  "artifacts": [
+    {
+      "path": "docs/tickets/EPIC-004/TICKET-001.md",
+      "kind": "ticket",
+      "sha256": "2645dc3371bb9b6261565a1556735bd2750751afdf9371a93c636e43b2d4c917"
+    },
+    {
+      "path": "docs/tickets/EPIC-004/TICKET-002.md",
+      "kind": "ticket",
+      "sha256": "f8bf85ccc8e20d4efc5ecda4f39831ca997af24ef18fad0320df2c68a540bb58"
+    },
+    {
+      "path": "docs/tickets/EPIC-004/TICKET-003.md",
+      "kind": "ticket",
+      "sha256": "94b489494300e50149b75329da81a7eb2c50f4b7354eb50b16976587ef5f8718"
+    },
+    {
+      "path": "docs/tickets/EPIC-004/TICKET-004.md",
+      "kind": "ticket",
+      "sha256": "4c046705978c91fb6f7888873c783696c7afaaeb462092aeae38576a36c95e4c"
+    },
+    {
+      "path": "docs/tickets/EPIC-004/TICKET-005.md",
+      "kind": "ticket",
+      "sha256": "2c8a90aaffaf723d38cffe9c82ada8fef44cd4b7f8234517fe2263066b290a5f"
+    }
+  ],
+  "errors": [],
+  "created_at": "2026-09-02T23:20:40Z",
+  "payload": {
+    "epic_id": "EPIC-004",
+    "tickets": [
+      {
+        "id": "TICKET-001",
+        "title": "Generate canonical integrity metadata from artifact bytes",
+        "description": "Provide deterministic, atomic generation of checksum-derived handoff evidence from selected artifact bytes so agents never author digest values.",
+        "dependencies": [],
+        "acceptance_criteria": [
+          "Repository tooling populates or updates checksum-derived fields from real artifact bytes without caller-supplied digests.",
+          "Identical ordered inputs and bytes produce byte-identical canonical output, while a one-byte change produces a deterministic checksum change or mismatch.",
+          "Unavailable, ambiguous, or failed generation leaves prior evidence unchanged and reports an actionable recovery step without a manual fallback.",
+          "Automated tests prove repeatability, canonical output, one-byte sensitivity, and failure atomicity."
+        ],
+        "complexity": "medium"
+      },
+      {
+        "id": "TICKET-002",
+        "title": "Enforce live artifact integrity and safe paths",
+        "description": "Verify exact artifact bytes and resolved repository containment during standalone validation and again immediately before ingest persistence.",
+        "dependencies": [
+          "TICKET-001"
+        ],
+        "acceptance_criteria": [
+          "A handoff passes only when every artifact is an allowed readable regular file inside the repository and its computed SHA-256 matches exactly.",
+          "Missing, unreadable, directory, duplicate, self-referential, repository-escaping, and symlink-escaping paths fail with artifact-specific reasons.",
+          "Ingest repeats integrity verification immediately before persistence and rejects evidence changed after standalone validation.",
+          "Every integrity failure leaves workflow status and epic lifecycle unchanged and reports deterministic recovery guidance.",
+          "Automated tests cover the happy path, one-byte and line-ending changes, all unsafe path classes, stale validation, and unchanged-state guarantees."
+        ],
+        "complexity": "large"
+      },
+      {
+        "id": "TICKET-003",
+        "title": "Preserve tamper-evident accepted evidence",
+        "description": "Persist the accepted handoff and exact verified artifact versions so later validation and resume can detect tampering without relying on mutable live files.",
+        "dependencies": [
+          "TICKET-002"
+        ],
+        "acceptance_criteria": [
+          "Successful ingest durably preserves integrity evidence for the handoff and exact artifact bytes verified before transition.",
+          "Full harness validation and sprint resume identify modified, replaced, missing, or corrupt accepted evidence.",
+          "A later approved role can change a live product file while the earlier accepted version remains valid and inspectable.",
+          "Partial or failed persistence never becomes accepted and leaves the last trustworthy checkpoint and epic lifecycle unchanged.",
+          "Automated tests cover canonical preservation, tampering, replacement, absence, later live-file changes, and interrupted persistence."
+        ],
+        "complexity": "large"
+      },
+      {
+        "id": "TICKET-004",
+        "title": "Preserve distinct retry evidence and deterministic recovery",
+        "description": "Give every retry distinct immutable evidence and make interrupted evidence handling safely and deterministically resumable.",
+        "dependencies": [
+          "TICKET-003"
+        ],
+        "acceptance_criteria": [
+          "Every retry has evidence identity distinct from prior attempts for the same role, round, and ticket.",
+          "Reuse or overwrite of prior accepted evidence is rejected before workflow or epic state changes.",
+          "All earlier failed and successful attempts remain inspectable and integrity-verifiable after subsequent retries.",
+          "Interruption at any durable boundary resumes without accepting partial evidence, duplicating an accepted transition, or losing the trustworthy checkpoint.",
+          "Automated tests cover retries, collisions, overwrite attempts, retained history, repeated recovery, and boundary interruptions."
+        ],
+        "complexity": "large"
+      },
+      {
+        "id": "TICKET-005",
+        "title": "Align fixtures and operating guidance with the integrity boundary",
+        "description": "Make examples, end-to-end regressions, and operating documentation accurately reflect live integrity and recovery behavior.",
+        "dependencies": [
+          "TICKET-001",
+          "TICKET-002",
+          "TICKET-003",
+          "TICKET-004"
+        ],
+        "acceptance_criteria": [
+          "Each example uses verified deterministic fixtures or an explicit schema-only mode that cannot be accepted as live ingest evidence.",
+          "Documentation explains the trust boundary, byte comparison, canonical preservation, attempt identity, tamper failures, and recovery actions.",
+          "Documentation does not treat visual comparison, agent-authored hashes, approval, merge, or deployment as integrity proof.",
+          "End-to-end tests cover every epic integrity and recovery boundary while existing workflow, gate, resume, validation, lint, and production-build checks pass."
+        ],
+        "complexity": "medium"
+      }
+    ],
+    "dependency_order": [
+      "TICKET-001",
+      "TICKET-002",
+      "TICKET-003",
+      "TICKET-004",
+      "TICKET-005"
+    ],
+    "risks": [
+      "Self-referential handoff integrity can create an impossible checksum cycle unless the evidence boundary is explicit.",
+      "A validation-to-ingest race can accept changed bytes unless verification is repeated at the durable transition.",
+      "Preserving accepted versions must not make legitimate later edits to live product files appear as historical tampering.",
+      "String-based containment or symlink traversal can admit evidence outside the repository trust boundary.",
+      "Retry identity collisions or partial writes can erase evidence or cause an interrupted attempt to appear accepted.",
+      "Existing placeholder examples may be mistaken for ingestible evidence unless their validation mode is unmistakable."
+    ],
+    "approval_request": {
+      "id": "APPROVAL-PLAN-RUN-20260902231838",
+      "gate": "plan_approval",
+      "status": "pending",
+      "question": "Approve the five-ticket dependency-ordered plan for EPIC-004?",
+      "requested_at": "2026-09-02T23:20:40Z",
+      "decided_at": null,
+      "decided_by": null,
+      "decision_note": null
+    }
+  }
+}

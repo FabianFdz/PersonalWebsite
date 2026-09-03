@@ -4,13 +4,13 @@
   "rules": [
     {
       "id": "RULE-REVIEW-001",
-      "rule": "An approval requires explicit evidence for every acceptance criterion and zero unresolved blocking findings.",
+      "rule": "A Reviewer approved verdict requires explicit evidence for every acceptance criterion and zero unresolved blocking findings.",
       "rationale": "A passing build alone does not prove product correctness or security.",
       "applies_when": "Issuing any review verdict",
       "source_type": "seed",
       "confidence": "high",
       "created_at": "2026-08-19T00:00:00.000Z",
-      "last_updated_at": "2026-08-19T00:00:00.000Z"
+      "last_updated_at": "2026-09-02T23:51:46.000Z"
     }
   ]
 }

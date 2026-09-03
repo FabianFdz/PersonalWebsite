@@ -3,13 +3,16 @@
 ## Control flow
 
 ```text
-First pending epic → Planner → [human plan gate] → Architect → [human architecture gate]
-     → Coder → Reviewer ─changes requested→ Coder
-                         └approved→ Documentation Specialist
-                                      → [human merge gate] → Complete
+First pending epic → Planner → Architect → Coder → Reviewer ─changes requested→ Coder
+                                                   └approved→ Documentation Specialist
+                                                                → Complete or next ticket
+                                                                     ↓
+                                                           [human PR review] → merge
 ```
 
 At each arrow the producing role writes a JSON envelope and role-specific payload. Validation is a transaction boundary: only a valid artifact may update `harness/status.json`.
+
+The role pipeline has no routine manual gates. Human decisions remain outside automatic transitions: unresolved material ambiguity blocks the current role, and a completed sprint requires human review before any PR is approved or merged.
 
 ## Surfaces
 
@@ -35,11 +38,11 @@ High-level commands receive these collaborators explicitly. This keeps workflow 
 
 ## Resume model
 
-`status.json` is a materialized state machine. `checkpoint.resume_from` contains a human-readable next action; `last_validated_artifact` names the last trustworthy boundary. On restart, validate the full repository control plane before reading the checkpoint. Pending approvals always take precedence over agent work.
+`status.json` is a materialized state machine. `checkpoint.resume_from` contains a human-readable next action; `last_validated_artifact` names the last trustworthy boundary. On restart, validate the full repository control plane before reading the checkpoint. Persisted state always takes precedence over chat history.
 
 ## Sprint selection and recovery
 
-`pnpm run harness -- sprint` starts the first `pending` epic in catalog order when no run is active, or prints the checkpoint for the active run. A selected epic must have only `completed` hard dependencies. Draft epics are never eligible.
+`pnpm run harness sprint` starts the first `pending` epic in catalog order when no run is active, or prints the checkpoint for the active run. A selected epic must have only `completed` hard dependencies. Draft epics are never eligible.
 
 Run initialization persists `harness/status.json` before marking the epic `in_progress`. If interruption occurs between those writes, the next sprint invocation reconciles the pending catalog entry to the active run. When the run reaches `complete`, the next invocation marks the epic `completed` and stops; a later invocation may start another epic. This preserves one-epic-per-sprint intent and makes the two-file transition recoverable.
 
@@ -59,7 +62,9 @@ Every listed artifact has a SHA-256 digest in the producing envelope. Mutating a
 ## Security boundaries
 
 - Model output is untrusted until schema validation succeeds.
-- Agents cannot approve human gates.
+- A role advances the state only through a successful handoff that passes structural and semantic validation.
+- Material ambiguities are escalated to the user as structured blockers rather than guessed.
+- Agents never approve or merge their own pull requests; internal completion is only a PR-review boundary.
 - Status is validated before atomic persistence; invalid transitions never replace the last valid file.
 - Reviewer does not edit implementation.
 - No secrets belong in prompts, state, memory, or handoffs.

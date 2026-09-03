@@ -54,14 +54,6 @@ async function run() {
       return commands.sprint();
     case "ingest":
       return commands.ingest(commandArguments[0]);
-    case "approve":
-    case "reject":
-      return commands.decide(
-        commandName,
-        commandArguments[0],
-        commandArguments[1],
-        commandArguments.slice(2).join(" ") || null,
-      );
     case "resume":
     case "next":
       return commands.status({ resumeOnly: true });
@@ -71,7 +63,7 @@ async function run() {
       return commands.status();
     default:
       throw new Error(
-        "Commands: sprint, init, ingest, validate, status, next, resume, approve, reject",
+        "Commands: sprint, init, ingest, validate, status, next, resume",
       );
   }
 }

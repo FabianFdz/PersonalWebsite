@@ -1,17 +1,9 @@
-import { applyAgentOutput, createInitialStatus, decideApproval } from "./workflow.mjs";
+import { applyAgentOutput, createInitialStatus } from "./workflow.mjs";
 import { presentStatus, presentValidation } from "./presenter.mjs";
 
 function assertEpicId(epicId) {
   if (!/^EPIC-[0-9]{3}$/.test(epicId || "")) {
-    throw new Error("Usage: pnpm run harness -- init EPIC-NNN");
-  }
-}
-
-function assertDecisionArguments(decision, approvalId, decidedBy) {
-  if (!approvalId || !decidedBy) {
-    throw new Error(
-      `Usage: pnpm run harness -- ${decision} APPROVAL-ID "Human name" [note]`,
-    );
+    throw new Error("Usage: pnpm run harness init EPIC-NNN");
   }
 }
 
@@ -127,7 +119,7 @@ export function createHarnessCommands({
 
     async ingest(file) {
       if (!file) {
-        throw new Error("Usage: pnpm run harness -- ingest <agent-output.json>");
+        throw new Error("Usage: pnpm run harness ingest <agent-output.json>");
       }
       const agentOutput = await validateAgentOutput(file);
       const currentStatus = await statusRepository.read();
@@ -139,25 +131,6 @@ export function createHarnessCommands({
       );
       const persistedStatus = await statusRepository.save(nextStatus);
       output(`Ingested ${file}. ${persistedStatus.checkpoint.resume_from}`);
-    },
-
-    async decide(decision, approvalId, decidedBy, note = null) {
-      assertDecisionArguments(decision, approvalId, decidedBy);
-      const currentStatus = await statusRepository.read();
-      const nextStatus = decideApproval(currentStatus, {
-        decision,
-        approvalId,
-        decidedBy,
-        note,
-        timestamp: clock(),
-      });
-      const persistedStatus = await statusRepository.save(nextStatus);
-      const approval = persistedStatus.approvals.find(
-        (candidate) => candidate.id === approvalId,
-      );
-      output(
-        `${approvalId} ${approval.status}. ${persistedStatus.checkpoint.resume_from}`,
-      );
     },
 
     async status({ resumeOnly = false } = {}) {

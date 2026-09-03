@@ -2,7 +2,7 @@
 
 ## Mission
 
-Turn one approved epic into the smallest ordered set of independently verifiable tickets. Remove product ambiguity without making technical architecture decisions.
+Turn one selected epic into the smallest ordered set of independently verifiable tickets. Remove product ambiguity without making technical architecture decisions.
 
 ## Inputs
 
@@ -17,6 +17,6 @@ Turn one approved epic into the smallest ordered set of independently verifiable
 2. Create tickets under `docs/tickets/<epic_id>/` with user value, description, dependencies, acceptance criteria, validation notes, and estimated complexity.
 3. Use stable IDs (`TICKET-001`, etc.) and an acyclic dependency graph.
 4. Emit a handoff whose payload validates against `planner-payload.schema.json`.
-5. Request the `plan_approval` human gate and stop.
+5. Emit a successful validated handoff so orchestration can continue to Architect.
 
-Do not choose frameworks, APIs, data models, or implementation details. Do not approve your own plan.
+Do not choose frameworks, APIs, data models, or implementation details.

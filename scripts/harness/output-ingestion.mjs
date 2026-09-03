@@ -2,7 +2,7 @@ import {
   activeRound,
   createPlannedTicket,
   markStage,
-  requestApproval,
+  nextRunnableTicket,
   roleByPhase,
 } from "./workflow-state.mjs";
 
@@ -16,7 +16,7 @@ function assertIngestContext(status, output) {
       `Phase ${status.phase} requires ${expectedRole}, received ${output.role}`,
     );
   }
-  if (!["success", "needs_human"].includes(output.status)) {
+  if (output.status !== "success") {
     throw new Error(`Cannot ingest output with status ${output.status}`);
   }
   if (output.role !== "planner" && output.ticket_id !== status.current_ticket) {
@@ -26,46 +26,24 @@ function assertIngestContext(status, output) {
   }
 }
 
-function ingestPlanner(status, output, artifact, timestamp) {
+function ingestPlanner(status, output, artifact) {
   activeRound(status).tickets = output.payload.tickets.map((ticket) =>
     createPlannedTicket(ticket, artifact),
   );
   status.current_ticket = output.payload.dependency_order[0];
-  requestApproval(
-    status,
-    "plan_approval",
-    `Approve the ticket plan for ${status.epic_id}?`,
-    timestamp,
-  );
+  status.phase = "architecture";
+  status.state = "running";
+  status.checkpoint.resume_from = `Run Architect for ${status.current_ticket}`;
 }
 
-function ingestArchitect(status, _output, artifact, timestamp) {
+function ingestArchitect(status, _output, artifact) {
   markStage(status, "architecture", "passed", artifact);
-  requestApproval(
-    status,
-    "architecture_approval",
-    `Approve architecture for ${status.current_ticket}?`,
-    timestamp,
-  );
+  status.phase = "implementation";
+  status.state = "running";
+  status.checkpoint.resume_from = `Run Coder for ${status.current_ticket}`;
 }
 
-function ingestCoder(status, output, artifact, timestamp) {
-  if (output.status === "needs_human") {
-    const scopeChangeRequest = output.payload.scope_change_request;
-    if (!scopeChangeRequest) {
-      throw new Error(
-        "Coder needs_human output requires a scope_change_request",
-      );
-    }
-    requestApproval(
-      status,
-      "scope_change_approval",
-      scopeChangeRequest.question,
-      timestamp,
-    );
-    return;
-  }
-
+function ingestCoder(status, output, artifact) {
   const checksPassed = output.payload.checks.every(
     (check) => check.result === "passed",
   );
@@ -90,14 +68,29 @@ function ingestReviewer(status, output, artifact) {
     : `Return findings to Coder for ${status.current_ticket}`;
 }
 
-function ingestDocumentation(status, _output, artifact, timestamp) {
+function ingestDocumentation(status, _output, artifact) {
   markStage(status, "documentation", "passed", artifact);
-  requestApproval(
+  markStage(
     status,
-    "merge_approval",
-    `Approve completion of ${status.current_ticket}?`,
-    timestamp,
+    "merge",
+    "passed",
+    artifact,
   );
+  const nextTicket = nextRunnableTicket(status);
+
+  if (nextTicket) {
+    status.current_ticket = nextTicket.ticket_id;
+    status.phase = "architecture";
+    status.state = "running";
+    status.checkpoint.resume_from = `Run Architect for ${status.current_ticket}`;
+    return;
+  }
+
+  status.current_ticket = null;
+  status.state = "complete";
+  status.phase = "complete";
+  activeRound(status).status = "complete";
+  status.checkpoint.resume_from = "Run complete";
 }
 
 const ingestorsByRole = {

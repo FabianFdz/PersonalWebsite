@@ -3,7 +3,6 @@ import test from "node:test";
 import {
   applyAgentOutput,
   createInitialStatus,
-  decideApproval,
 } from "../scripts/harness/workflow.mjs";
 
 const timestamp = "2026-08-19T00:00:00.000Z";
@@ -28,45 +27,45 @@ function output(role, payload, ticketId = "TICKET-001", status = "success") {
   };
 }
 
-function plannedStatus() {
+function plannedStatus(tickets = [{ id: "TICKET-001", dependencies: [] }]) {
   return applyAgentOutput(
     initialStatus(),
     output("planner", {
-      tickets: [{ id: "TICKET-001", dependencies: [] }],
-      dependency_order: ["TICKET-001"],
+      tickets,
+      dependency_order: tickets.map((ticket) => ticket.id),
     }),
     "planner.output.json",
     timestamp,
   );
 }
 
-function approveLatest(status, note = "Approved") {
-  return decideApproval(status, {
-    decision: "approve",
-    approvalId: status.approvals.at(-1).id,
-    decidedBy: "Human",
-    note,
-    timestamp,
-  });
-}
-
 function implementationReadyStatus() {
-  let status = approveLatest(plannedStatus());
-  status = applyAgentOutput(
-    status,
+  return applyAgentOutput(
+    plannedStatus(),
     output("architect", {}),
     "architect.output.json",
     timestamp,
   );
-  return approveLatest(status);
 }
 
-test("workflow advances through human gates and returns review changes to Coder", () => {
-  let status = plannedStatus();
-  assert.equal(status.state, "waiting_for_human");
-  assert.equal(status.phase, "plan_approval");
+function documentationReadyStatus(status = implementationReadyStatus()) {
+  const reviewedStatus = applyAgentOutput(
+    status,
+    output("coder", { checks: [{ result: "passed" }] }),
+    "coder.output.json",
+    timestamp,
+  );
+  return applyAgentOutput(
+    reviewedStatus,
+    output("reviewer", { verdict: "approved" }),
+    "reviewer.output.json",
+    timestamp,
+  );
+}
 
-  status = approveLatest(status);
+test("workflow advances automatically and returns review changes to Coder", () => {
+  let status = plannedStatus();
+  assert.equal(status.state, "running");
   assert.equal(status.phase, "architecture");
 
   status = applyAgentOutput(
@@ -75,7 +74,6 @@ test("workflow advances through human gates and returns review changes to Coder"
     "architect.output.json",
     timestamp,
   );
-  status = approveLatest(status);
   assert.equal(status.phase, "implementation");
 
   status = applyAgentOutput(
@@ -96,30 +94,49 @@ test("workflow advances through human gates and returns review changes to Coder"
   assert.match(status.checkpoint.resume_from, /Return findings to Coder/);
 });
 
-test("rejected approvals leave no pending decision and return to a resolvable phase", () => {
-  const waitingStatus = plannedStatus();
-  const rejectedStatus = decideApproval(waitingStatus, {
-    decision: "reject",
-    approvalId: waitingStatus.approvals.at(-1).id,
-    decidedBy: "Human",
-    note: "Split the first ticket",
+test("successful documentation completes a one-ticket run", () => {
+  const status = applyAgentOutput(
+    documentationReadyStatus(),
+    output("documentation-specialist", {}),
+    "documentation-specialist.output.json",
     timestamp,
-  });
-
-  assert.equal(rejectedStatus.state, "blocked");
-  assert.equal(rejectedStatus.phase, "planning");
-  assert.equal(
-    rejectedStatus.approvals.filter((approval) => approval.status === "pending").length,
-    0,
   );
+
+  assert.equal(status.state, "complete");
+  assert.equal(status.phase, "complete");
+  assert.equal(status.current_ticket, null);
+  assert.equal(status.rounds[0].status, "complete");
+  assert.equal(status.rounds[0].tickets[0].merge.status, "passed");
+});
+
+test("successful documentation selects the next dependency-ready ticket", () => {
+  const planned = plannedStatus([
+    { id: "TICKET-001", dependencies: [] },
+    { id: "TICKET-002", dependencies: ["TICKET-001"] },
+  ]);
+  const architecture = applyAgentOutput(
+    planned,
+    output("architect", {}),
+    "architect.output.json",
+    timestamp,
+  );
+  const status = applyAgentOutput(
+    documentationReadyStatus(architecture),
+    output("documentation-specialist", {}),
+    "documentation-specialist.output.json",
+    timestamp,
+  );
+
+  assert.equal(status.state, "running");
+  assert.equal(status.phase, "architecture");
+  assert.equal(status.current_ticket, "TICKET-002");
+  assert.equal(status.rounds[0].tickets[0].merge.status, "passed");
 });
 
 test("workflow rejects outputs for another ticket", () => {
-  const status = approveLatest(plannedStatus());
-
   assert.throws(
     () => applyAgentOutput(
-      status,
+      plannedStatus(),
       output("architect", {}, "TICKET-999"),
       "architect.output.json",
       timestamp,
@@ -128,28 +145,18 @@ test("workflow rejects outputs for another ticket", () => {
   );
 });
 
-test("Coder scope changes stop at a dedicated human gate", () => {
-  const status = applyAgentOutput(
-    implementationReadyStatus(),
-    output(
-      "coder",
-      {
-        scope_change_request: {
-          question: "Approve a required scope change?",
-        },
-      },
-      "TICKET-001",
-      "needs_human",
-    ),
-    "coder.output.json",
-    timestamp,
-  );
+test("blocked role output cannot advance workflow state", () => {
+  const status = implementationReadyStatus();
 
-  assert.equal(status.state, "waiting_for_human");
-  assert.equal(status.phase, "scope_change_approval");
-  assert.equal(status.approvals.at(-1).gate, "scope_change_approval");
-  assert.equal(
-    status.rounds[0].tickets[0].implementation.status,
-    "not_started",
+  assert.throws(
+    () => applyAgentOutput(
+      status,
+      output("coder", {}, "TICKET-001", "blocked"),
+      "coder.output.json",
+      timestamp,
+    ),
+    /Cannot ingest output with status blocked/,
   );
+  assert.equal(status.phase, "implementation");
+  assert.equal(status.rounds[0].tickets[0].implementation.status, "not_started");
 });
