@@ -1,1 +1,0 @@
-Act as the Planner for this run. Follow `AGENTS.md` and `harness/agents/planner.md`. Read the active state, epic, and Planner memory; create deterministic ticket artifacts and a successful validated Planner handoff.
