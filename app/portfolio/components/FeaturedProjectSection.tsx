@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { FeaturedProject } from "../../i18n";
 import { SectionLabel } from "./SectionLabel";
+import { TerminalBlock } from "./TerminalBlock";
 
 type FeaturedProjectSectionProps = {
   label: string;
@@ -34,14 +35,11 @@ export function FeaturedProjectSection({
       <div className="case-usage">
         <div>
           <h3>{project.install.label}</h3>
-          <ol>
-            {project.install.steps.map((step) => (
-              <li key={step.command}>
-                <span>{step.description}</span>
-                <code>{step.command}</code>
-              </li>
-            ))}
-          </ol>
+          <TerminalBlock
+            title={project.install.terminalTitle}
+            steps={project.install.steps}
+            copy={project.install.copy}
+          />
         </div>
         <div>
           <h3>{project.skills.label}</h3>

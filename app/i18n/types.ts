@@ -33,6 +33,13 @@ export type FeaturedProject = {
   };
   install: {
     label: string;
+    terminalTitle: string;
+    copy: {
+      label: string;
+      copiedLabel: string;
+      failedLabel: string;
+      accessibilityLabel: string;
+    };
     steps: readonly InstallStep[];
   };
   skills: {

@@ -69,6 +69,13 @@ export const spanishContent = {
     },
     install: {
       label: "INSTALACIÓN",
+      terminalTitle: "zsh — dev-setup",
+      copy: {
+        label: "COPIAR",
+        copiedLabel: "COPIADO",
+        failedLabel: "NO SE COPIÓ",
+        accessibilityLabel: "Copiar los comandos de instalación",
+      },
       steps: [
         {
           description: "Agrega el marketplace una vez por máquina.",
