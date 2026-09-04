@@ -61,11 +61,39 @@ export const spanishContent = {
     title:
       "Software que se construye con agentes. Decisiones que siguen siendo humanas.",
     summary:
-      "Un harness multiagente que transforma epics en tickets, decisiones arquitectónicas, código revisado y documentación, con contratos JSON, checkpoints reanudables y validación determinista.",
+      "dev-setup es mi marketplace de plugins para Claude Code. Su plugin sprint-runner convierte un epic de producto en pull requests revisados y listos para entregar, con un pipeline de cinco agentes que avanza un paso aprobado por una persona a la vez.",
     link: {
-      label: "VER ARQUITECTURA",
-      href: "https://github.com/FabianFdz/PersonalWebsite",
-      accessibilityLabel: "Ver la arquitectura del proyecto destacado en GitHub",
+      label: "VER EL PLUGIN",
+      href: "https://github.com/FabianFdz/dev-setup",
+      accessibilityLabel: "Ver el marketplace de plugins dev-setup en GitHub",
+    },
+    install: {
+      label: "INSTALACIÓN",
+      steps: [
+        {
+          description: "Agrega el marketplace una vez por máquina.",
+          command: "claude plugin marketplace add FabianFdz/dev-setup",
+        },
+        {
+          description: "Instala el plugin en cualquier proyecto.",
+          command: "claude plugin install sprint-runner@fabian-dev-setup",
+        },
+      ],
+    },
+    skills: {
+      label: "SKILLS",
+      items: [
+        {
+          name: "/epic-creator",
+          description:
+            "Cuestiona la idea inicial y escribe el epic que se haya ganado.",
+        },
+        {
+          name: "/sprint",
+          description:
+            "Lleva ese epic por los cinco roles de abajo, con una pausa de aprobación en cada entrega.",
+        },
+      ],
     },
     stages: ["PLANNER", "ARCHITECT", "CODER", "REVIEWER", "DOCS"],
   },

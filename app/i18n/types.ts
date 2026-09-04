@@ -11,6 +11,16 @@ export type ExperienceItem = {
   summary: string;
 };
 
+export type InstallStep = {
+  description: string;
+  command: string;
+};
+
+export type FeaturedProjectSkill = {
+  name: string;
+  description: string;
+};
+
 export type FeaturedProject = {
   year: string;
   kicker: string;
@@ -20,6 +30,14 @@ export type FeaturedProject = {
     label: string;
     href: string;
     accessibilityLabel: string;
+  };
+  install: {
+    label: string;
+    steps: readonly InstallStep[];
+  };
+  skills: {
+    label: string;
+    items: readonly FeaturedProjectSkill[];
   };
   stages: readonly string[];
 };

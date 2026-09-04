@@ -60,11 +60,39 @@ export const englishContent = {
     kicker: "HUMAN-IN-THE-LOOP · AGENTIC AI",
     title: "Software built with agents. Decisions that remain human.",
     summary:
-      "A multi-agent harness that turns epics into tickets, architecture decisions, reviewed code, and documentation through JSON contracts, resumable checkpoints, and deterministic validation.",
+      "dev-setup is my Claude Code plugin marketplace. Its sprint-runner plugin turns a product epic into shipped, reviewed pull requests through a five-agent pipeline that advances one human-approved step at a time.",
     link: {
-      label: "VIEW ARCHITECTURE",
-      href: "https://github.com/FabianFdz/PersonalWebsite",
-      accessibilityLabel: "View the architecture of the featured project on GitHub",
+      label: "VIEW THE PLUGIN",
+      href: "https://github.com/FabianFdz/dev-setup",
+      accessibilityLabel: "View the dev-setup plugin marketplace on GitHub",
+    },
+    install: {
+      label: "INSTALL",
+      steps: [
+        {
+          description: "Add the marketplace once per machine.",
+          command: "claude plugin marketplace add FabianFdz/dev-setup",
+        },
+        {
+          description: "Install the plugin in any project.",
+          command: "claude plugin install sprint-runner@fabian-dev-setup",
+        },
+      ],
+    },
+    skills: {
+      label: "SKILLS",
+      items: [
+        {
+          name: "/epic-creator",
+          description:
+            "Challenges a rough idea, then drafts the epic it earns.",
+        },
+        {
+          name: "/sprint",
+          description:
+            "Runs that epic through the five roles below, pausing for approval at every handoff.",
+        },
+      ],
     },
     stages: ["PLANNER", "ARCHITECT", "CODER", "REVIEWER", "DOCS"],
   },
