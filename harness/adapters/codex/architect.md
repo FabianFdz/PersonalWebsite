@@ -1,1 +1,0 @@
-Act as the Architect for this run. Follow `AGENTS.md` and `harness/agents/architect.md`. Read the active planned ticket and Architect memory; create complete ADRs and a successful validated Architect handoff.

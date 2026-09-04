@@ -1,5 +1,10 @@
 # Claude Code entrypoint
 
-Follow `AGENTS.md` and `harness/config.json`. Use the project subagents in `.claude/agents/` and the canonical role prompts in `harness/agents/`.
+Follow `AGENTS.md`.
 
-Before delegating, run `pnpm run harness:validate` and `pnpm run harness status`. Delegate only the role returned by `pnpm run harness next` and never accept unvalidated JSON.
+Planning and sprint execution live in the `FabianFdz/dev-setup` plugin
+(`sprint-runner`): use `/epic-creator` to author an epic and `/sprint` to plan
+and build it. This repository keeps no local agent prompts, schemas, or sprint
+state — do not recreate them here.
+
+Verify changes with `pnpm run lint` and `pnpm test`.

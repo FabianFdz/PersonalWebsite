@@ -1,4 +1,0 @@
-interface:
-  display_name: "Run Sprint"
-  short_description: "Run a sprint with focused human checkpoints"
-  default_prompt: "Use $run-sprint to run or resume the next epic, pausing only for material ambiguities and human PR approval."

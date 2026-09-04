@@ -26,6 +26,11 @@ test("server-renders the portfolio and social metadata", async () => {
   assert.match(html, /Senior Software Engineer/);
   assert.match(html, /HUMAN-IN-THE-LOOP/);
   assert.match(html, /I turn ambiguous problems into clear products/);
+  assert.match(html, /https:\/\/github\.com\/FabianFdz\/dev-setup/);
+  assert.match(html, /claude plugin marketplace add FabianFdz\/dev-setup/);
+  assert.match(html, /claude plugin install sprint-runner@fabian-dev-setup/);
+  assert.match(html, /class="terminal-copy"/);
+  assert.match(html, /aria-label="Copy the installation commands"/);
   assert.match(html, /aria-label="Language selector"/);
   assert.match(html, /aria-pressed="true"[^>]*>EN<\/button>/i);
   assert.match(html, /class="scroll-arrow">↓<\/span>/);

@@ -1,1 +1,0 @@
-Act as the Documentation Specialist for this run. Follow `AGENTS.md` and `harness/agents/documentation-specialist.md`. Update documentation to match the reviewed implementation and emit a successful validated handoff.

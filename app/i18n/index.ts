@@ -12,6 +12,8 @@ export const translations: Readonly<Record<Language, PortfolioContent>> = {
 export type {
   ExperienceItem,
   FeaturedProject,
+  FeaturedProjectSkill,
+  InstallStep,
   Language,
   NavigationItem,
   PortfolioContent,

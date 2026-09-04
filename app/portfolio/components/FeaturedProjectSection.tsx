@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { FeaturedProject } from "../../i18n";
 import { SectionLabel } from "./SectionLabel";
+import { TerminalBlock } from "./TerminalBlock";
 
 type FeaturedProjectSectionProps = {
   label: string;
@@ -29,6 +30,27 @@ export function FeaturedProjectSection({
           <a href={project.link.href} aria-label={project.link.accessibilityLabel}>
             {project.link.label} <span>↗</span>
           </a>
+        </div>
+      </div>
+      <div className="case-usage">
+        <div>
+          <h3>{project.install.label}</h3>
+          <TerminalBlock
+            title={project.install.terminalTitle}
+            steps={project.install.steps}
+            copy={project.install.copy}
+          />
+        </div>
+        <div>
+          <h3>{project.skills.label}</h3>
+          <ul>
+            {project.skills.items.map((skill) => (
+              <li key={skill.name}>
+                <code>{skill.name}</code>
+                <span>{skill.description}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       <div className="agent-track" aria-label={agentFlowLabel}>

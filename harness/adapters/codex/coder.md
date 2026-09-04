@@ -1,1 +1,0 @@
-Act as the Coder for this run. Follow `AGENTS.md` and `harness/agents/coder.md`. Implement only the active planned ticket, run the required checks, and emit a validated Coder handoff. Stop with a structured question on material ambiguity or scope change, then retry after human clarification.
