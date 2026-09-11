@@ -17,9 +17,9 @@ export const spanishContent = {
     },
     location: "CARTAGO, COSTA RICA",
     coordinates: "9.8642°N / 83.9199°W",
-    roleLines: ["Senior Software Engineer", "& GenAI Builder"],
+    roleLines: ["Senior Full-Stack Engineer", "& GenAI Builder"],
     introduction:
-      "Convierto problemas ambiguos en productos claros: experiencias web, plataformas cloud y sistemas de IA que mantienen a las personas al mando. Este es mi rincón de internet.",
+      "Convierto problemas ambiguos en productos claros: plataformas web full-stack, sistemas empresariales y sistemas de IA que mantienen a las personas al mando. Este es mi rincón de internet.",
     availability: "DISPONIBLE PARA CONVERSAR",
   },
   navigation: [
@@ -44,15 +44,15 @@ export const spanishContent = {
     },
     {
       period: "PRODUCT ENGINEERING",
-      role: "Frontend & Full-stack",
+      role: "Full-Stack Engineering",
       summary:
-        "Construyo experiencias web mantenibles con React, Next.js y TypeScript, desde la arquitectura hasta la entrega y observabilidad.",
+        "Construyo en todo el stack: front-ends en React/Next.js/TypeScript y backends en C#/.NET, desde la arquitectura hasta la entrega y la observabilidad.",
     },
     {
       period: "PLATFORM",
-      role: "Cloud & Delivery",
+      role: "Cloud & Modernización",
       summary:
-        "Conecto producto, automatización y prácticas de ingeniería para convertir ideas complejas en software confiable y operable.",
+        "He modernizado sistemas legacy y migrado plataformas on-premise a Azure, conectando producto, automatización y prácticas de ingeniería en software confiable y operable.",
     },
   ],
   featuredProject: {
@@ -109,9 +109,9 @@ export const spanishContent = {
     items: [
       "Productos de IA",
       "Flujos agénticos",
-      "Plataformas web",
+      "Plataformas full-stack",
       "Arquitectura",
-      "Experiencia de desarrollo",
+      "Modernización de legacy",
       "Entrega cloud",
     ],
   },
@@ -134,9 +134,15 @@ export const spanishContent = {
     { id: "nodejs", label: "Node.js", category: "Runtime" },
     { id: "express", label: "Express", category: "Framework backend" },
     { id: "nestjs", label: "NestJS", category: "Framework backend" },
+    { id: "dotnet", label: "C# / .NET", category: "Lenguaje backend" },
     {
       id: "postgresql",
       label: "PostgreSQL",
+      category: "Base de datos relacional",
+    },
+    {
+      id: "sqlserver",
+      label: "SQL Server",
       category: "Base de datos relacional",
     },
     {
@@ -144,7 +150,7 @@ export const spanishContent = {
       label: "MongoDB",
       category: "Base de datos documental",
     },
-    { id: "cloud", label: "Cloud", category: "Infraestructura" },
+    { id: "cloud", label: "Azure", category: "Plataforma cloud" },
     { id: "cicd", label: "CI/CD", category: "Automatización" },
   ],
   contact: {
@@ -154,12 +160,12 @@ export const spanishContent = {
       { label: "LINKEDIN", href: "https://www.linkedin.com/in/fabianfdz" },
       { label: "GITHUB", href: "https://github.com/FabianFdz" },
     ],
-    signature: "FABIÁN FERNÁNDEZ · SENIOR SOFTWARE ENGINEER + GENAI",
+    signature: "FABIÁN FERNÁNDEZ · SENIOR FULL-STACK ENGINEER + GENAI",
   },
   seo: {
-    title: "Fabián Fernández — Senior Software Engineer & GenAI Builder",
+    title: "Fabián Fernández — Senior Full-Stack Engineer & GenAI Builder",
     description:
-      "Portfolio de Fabián Fernández: ingeniería de software, productos GenAI, sistemas multiagente y experiencias web.",
+      "Portfolio de Fabián Fernández: ingeniería full-stack (React/Next.js, C#/.NET), productos GenAI, sistemas multiagente y plataformas cloud.",
     socialImagePath: "/og.png",
     socialImageAlt: "Fabián Fernández — Software + GenAI",
     socialImageWidth: 1736,

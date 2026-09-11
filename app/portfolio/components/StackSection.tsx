@@ -1,9 +1,10 @@
 import type { CSSProperties } from "react";
 import type { IconType } from "react-icons";
 import { BsOpenai } from "react-icons/bs";
-import { LuCloud, LuGitBranch, LuWorkflow } from "react-icons/lu";
+import { LuCloud, LuDatabase, LuGitBranch, LuWorkflow } from "react-icons/lu";
 import {
   SiClaude,
+  SiDotnet,
   SiExpress,
   SiLangchain,
   SiLanggraph,
@@ -39,6 +40,8 @@ const technologyIcons: Readonly<
   nestjs: [{ id: "nestjs", component: SiNestjs }],
   postgresql: [{ id: "postgresql", component: SiPostgresql }],
   mongodb: [{ id: "mongodb", component: SiMongodb }],
+  dotnet: [{ id: "dotnet", component: SiDotnet }],
+  sqlserver: [{ id: "sqlserver", component: LuDatabase }],
   genai: [
     { id: "openai", component: BsOpenai },
     { id: "claude", component: SiClaude },

@@ -17,9 +17,9 @@ export const englishContent = {
     },
     location: "CARTAGO, COSTA RICA",
     coordinates: "9.8642°N / 83.9199°W",
-    roleLines: ["Senior Software Engineer", "& GenAI Builder"],
+    roleLines: ["Senior Full-Stack Engineer", "& GenAI Builder"],
     introduction:
-      "I turn ambiguous problems into clear products: web experiences, cloud platforms, and AI systems that keep people in control. This is my corner of the internet.",
+      "I turn ambiguous problems into clear products: full-stack web platforms, enterprise systems, and AI systems that keep people in control. This is my corner of the internet.",
     availability: "OPEN TO CONVERSATIONS",
   },
   navigation: [
@@ -44,15 +44,15 @@ export const englishContent = {
     },
     {
       period: "PRODUCT ENGINEERING",
-      role: "Frontend & Full-stack",
+      role: "Full-Stack Engineering",
       summary:
-        "I build maintainable web experiences with React, Next.js, and TypeScript, from architecture through delivery and observability.",
+        "I build across the stack: React/Next.js/TypeScript front-ends and C#/.NET backends, from architecture through delivery and observability.",
     },
     {
       period: "PLATFORM",
-      role: "Cloud & Delivery",
+      role: "Cloud & Modernization",
       summary:
-        "I connect product, automation, and engineering practices to turn complex ideas into reliable, operable software.",
+        "I've modernized legacy systems and migrated on-premise platforms to Azure, connecting product, automation, and engineering practices into reliable, operable software.",
     },
   ],
   featuredProject: {
@@ -108,9 +108,9 @@ export const englishContent = {
     items: [
       "AI Products",
       "Agentic Workflows",
-      "Web Platforms",
+      "Full-Stack Platforms",
       "Architecture",
-      "Developer Experience",
+      "Legacy Modernization",
       "Cloud Delivery",
     ],
   },
@@ -129,13 +129,19 @@ export const englishContent = {
     { id: "nodejs", label: "Node.js", category: "Runtime" },
     { id: "express", label: "Express", category: "Backend framework" },
     { id: "nestjs", label: "NestJS", category: "Backend framework" },
+    { id: "dotnet", label: "C# / .NET", category: "Backend language" },
     {
       id: "postgresql",
       label: "PostgreSQL",
       category: "Relational database",
     },
+    {
+      id: "sqlserver",
+      label: "SQL Server",
+      category: "Relational database",
+    },
     { id: "mongodb", label: "MongoDB", category: "Document database" },
-    { id: "cloud", label: "Cloud", category: "Infrastructure" },
+    { id: "cloud", label: "Azure", category: "Cloud platform" },
     { id: "cicd", label: "CI/CD", category: "Automation" },
   ],
   contact: {
@@ -145,12 +151,12 @@ export const englishContent = {
       { label: "LINKEDIN", href: "https://www.linkedin.com/in/fabianfdz" },
       { label: "GITHUB", href: "https://github.com/FabianFdz" },
     ],
-    signature: "FABIÁN FERNÁNDEZ · SENIOR SOFTWARE ENGINEER + GENAI",
+    signature: "FABIÁN FERNÁNDEZ · SENIOR FULL-STACK ENGINEER + GENAI",
   },
   seo: {
-    title: "Fabián Fernández — Senior Software Engineer & GenAI Builder",
+    title: "Fabián Fernández — Senior Full-Stack Engineer & GenAI Builder",
     description:
-      "Fabián Fernández's portfolio: software engineering, GenAI products, multi-agent systems, and web experiences.",
+      "Fabián Fernández's portfolio: full-stack software engineering (React/Next.js, C#/.NET), GenAI products, multi-agent systems, and cloud platforms.",
     socialImagePath: "/og.png",
     socialImageAlt: "Fabián Fernández — Software + GenAI",
     socialImageWidth: 1736,
