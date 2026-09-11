@@ -63,6 +63,8 @@ export type StackTechnologyId =
   | "nestjs"
   | "postgresql"
   | "mongodb"
+  | "dotnet"
+  | "sqlserver"
   | "genai"
   | "langchain"
   | "langgraph"
