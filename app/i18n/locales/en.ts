@@ -46,7 +46,7 @@ export const englishContent = {
       period: "PRODUCT ENGINEERING",
       role: "Full-Stack Engineering",
       summary:
-        "I build across the stack: React/Next.js/TypeScript front-ends and C#/.NET backends, from architecture through delivery and observability.",
+        "I build across the stack with TypeScript: React/Next.js front-ends and Node.js backends, plus C#/.NET in enterprise environments, from architecture through delivery and observability.",
     },
     {
       period: "PLATFORM",
@@ -129,18 +129,18 @@ export const englishContent = {
     { id: "nodejs", label: "Node.js", category: "Runtime" },
     { id: "express", label: "Express", category: "Backend framework" },
     { id: "nestjs", label: "NestJS", category: "Backend framework" },
-    { id: "dotnet", label: "C# / .NET", category: "Backend language" },
     {
       id: "postgresql",
       label: "PostgreSQL",
       category: "Relational database",
     },
+    { id: "mongodb", label: "MongoDB", category: "Document database" },
+    { id: "dotnet", label: "C# / .NET", category: "Enterprise backend" },
     {
       id: "sqlserver",
       label: "SQL Server",
       category: "Relational database",
     },
-    { id: "mongodb", label: "MongoDB", category: "Document database" },
     { id: "cloud", label: "Azure", category: "Cloud platform" },
     { id: "cicd", label: "CI/CD", category: "Automation" },
   ],
@@ -156,7 +156,7 @@ export const englishContent = {
   seo: {
     title: "Fabián Fernández — Senior Full-Stack Engineer & GenAI Builder",
     description:
-      "Fabián Fernández's portfolio: full-stack software engineering (React/Next.js, C#/.NET), GenAI products, multi-agent systems, and cloud platforms.",
+      "Fabián Fernández's portfolio: full-stack software engineering (TypeScript, React/Next.js, Node.js), GenAI products, multi-agent systems, and cloud platforms.",
     socialImagePath: "/og.png",
     socialImageAlt: "Fabián Fernández — Software + GenAI",
     socialImageWidth: 1736,

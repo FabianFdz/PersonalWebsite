@@ -46,7 +46,7 @@ export const spanishContent = {
       period: "PRODUCT ENGINEERING",
       role: "Full-Stack Engineering",
       summary:
-        "Construyo en todo el stack: front-ends en React/Next.js/TypeScript y backends en C#/.NET, desde la arquitectura hasta la entrega y la observabilidad.",
+        "Construyo en todo el stack con TypeScript: front-ends en React/Next.js y backends en Node.js, además de C#/.NET en entornos empresariales, desde la arquitectura hasta la entrega y la observabilidad.",
     },
     {
       period: "PLATFORM",
@@ -134,21 +134,21 @@ export const spanishContent = {
     { id: "nodejs", label: "Node.js", category: "Runtime" },
     { id: "express", label: "Express", category: "Framework backend" },
     { id: "nestjs", label: "NestJS", category: "Framework backend" },
-    { id: "dotnet", label: "C# / .NET", category: "Lenguaje backend" },
     {
       id: "postgresql",
       label: "PostgreSQL",
       category: "Base de datos relacional",
     },
     {
-      id: "sqlserver",
-      label: "SQL Server",
-      category: "Base de datos relacional",
-    },
-    {
       id: "mongodb",
       label: "MongoDB",
       category: "Base de datos documental",
+    },
+    { id: "dotnet", label: "C# / .NET", category: "Backend empresarial" },
+    {
+      id: "sqlserver",
+      label: "SQL Server",
+      category: "Base de datos relacional",
     },
     { id: "cloud", label: "Azure", category: "Plataforma cloud" },
     { id: "cicd", label: "CI/CD", category: "Automatización" },
@@ -165,7 +165,7 @@ export const spanishContent = {
   seo: {
     title: "Fabián Fernández — Senior Full-Stack Engineer & GenAI Builder",
     description:
-      "Portfolio de Fabián Fernández: ingeniería full-stack (React/Next.js, C#/.NET), productos GenAI, sistemas multiagente y plataformas cloud.",
+      "Portfolio de Fabián Fernández: ingeniería full-stack (TypeScript, React/Next.js, Node.js), productos GenAI, sistemas multiagente y plataformas cloud.",
     socialImagePath: "/og.png",
     socialImageAlt: "Fabián Fernández — Software + GenAI",
     socialImageWidth: 1736,
